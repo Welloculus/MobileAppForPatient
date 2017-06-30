@@ -377,7 +377,7 @@ public class DeviceListActivity extends BaseActivity implements OnDeviceConnectL
     private void  MockGetDeviceListResponseHandler() {
         //ArrayList<DeviceInfoBean> deviceList1 = (ArrayList<DeviceInfoBean>) response.getResponseContent();
         ArrayList<DeviceInfoBean> deviceList1 = new ArrayList<DeviceInfoBean>();
-        DeviceInfoBean deviceMock = new DeviceInfoBean("true", "00:07:80:5A:3A:26", "Zypher", "Bluetooth", true , "03-05-2017");
+        DeviceInfoBean deviceMock = new DeviceInfoBean("true", "00:07:80:5A:3A:26", "zephyr", "Bluetooth", true , "03-05-2017");
         deviceList1.add(deviceMock);
         ArrayList<DeviceInfoBean> deviceList = new ArrayList<DeviceInfoBean>();
         for (DeviceInfoBean g : deviceList1) {
@@ -410,7 +410,7 @@ public class DeviceListActivity extends BaseActivity implements OnDeviceConnectL
                 if (response.getSuccess() && (response.getStatus() == Constants.HTTP_SUCCESS)) {
                     //ArrayList<DeviceInfoBean> deviceList1 = (ArrayList<DeviceInfoBean>) response.getResponseContent();
                     ArrayList<DeviceInfoBean> deviceList1 = new ArrayList<DeviceInfoBean>();
-                    DeviceInfoBean deviceMock = new DeviceInfoBean("true", "00:07:80:5A:3A:26", "Zypher", "Bluetooth", true);
+                    DeviceInfoBean deviceMock = new DeviceInfoBean("true", "00:07:80:5A:3A:26", "zephyr", "Bluetooth", true);
                     deviceList1.add(deviceMock);
                     ArrayList<DeviceInfoBean> deviceList = new ArrayList<DeviceInfoBean>();
                     for (DeviceInfoBean g : deviceList1) {

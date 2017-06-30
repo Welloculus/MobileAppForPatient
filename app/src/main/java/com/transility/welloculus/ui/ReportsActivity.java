@@ -200,7 +200,7 @@ public class ReportsActivity extends BaseActivity  implements View.OnClickListen
 
         if (true) {
             deviceNameType.clear();
-            DeviceInfoBean devicebean = new DeviceInfoBean("true","00:07:80:5A:3A:26","Zypher","Bluetooth");
+            DeviceInfoBean devicebean = new DeviceInfoBean("true","00:07:80:5A:3A:26","zephyr","Bluetooth");
             ArrayList<DeviceInfoBean> deviceDetails =  new ArrayList<DeviceInfoBean>();
             devicebean.setHealth_data(health_data);
             deviceDetails.add(devicebean);
@@ -299,7 +299,7 @@ public class ReportsActivity extends BaseActivity  implements View.OnClickListen
         paintentReportMap.clear();
         DeviceInfoBean deviceInfo;
         for(int i = 0;i<deviceListSize;i++){
-            deviceNameType.put("Zypher","heart_rate");
+            deviceNameType.put("zephyr","heart_rate");
             deviceInfo = new DeviceInfoBean(deviceDetails.get(i).getDevice_udi(),deviceDetails.get(i).getDevice_name());
             deviceLists.add(deviceInfo) ;
             healthDataList = (ArrayList<HealthDataBean>)deviceDetails.get(i).getHealth_data();

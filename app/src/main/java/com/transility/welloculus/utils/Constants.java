@@ -61,8 +61,6 @@ public interface Constants {
     String STARTDATE = "startdate";
     String ENDDATE = "enddate";
     String HEARTRATE = "heart_rate";
-    String ZYPHER = "Zypher";
-    String ZYPHER2 = "Viatomtech Checkme";
     String TEMPERTURE = "temperature";
 
        /* Cognito Constants*/
