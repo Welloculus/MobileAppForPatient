@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              tools:context="com.transility.welloculus.ui.SignUpConfirm">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:gravity="center"
+      >
+        <TextView
+           android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/confirm_toolbar_title"
+            android:text="@string/confirm_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/action_bar_text" />
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <include layout="@layout/content_sign_up_confirm" />
+
+</LinearLayout>

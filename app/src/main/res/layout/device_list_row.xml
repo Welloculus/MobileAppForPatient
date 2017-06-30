@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+              android:orientation="vertical"
+    android:layout_height="wrap_content">
+<RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="10dip">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/btnDeviceConnect"
+        android:orientation="vertical">
+        <!--  android:layout_toLeftOf="@+id/btnDeviceConnect"-->
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/txtDeviceAttr"
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:maxLines="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="14sp"
+
+                android:text="Device Name : "
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:id="@+id/txtDeviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" /></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:text="Connection Type : "
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:id="@+id/txtConnectionType"
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" /></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="Device Id : "
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:id="@+id/txtdeviceId"
+                android:textSize="14sp"
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" /></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="Added on : "
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:id="@+id/txtaddedOn"
+                android:textSize="14sp"
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:id="@+id/txtaddedOn1"
+                android:textSize="14sp"
+                style="@style/ContentTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" /></LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnDeviceConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="2dip"
+        style="@style/ButtonAppearance"
+        android:visibility="visible"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/btnStartStop" />
+
+    <Button
+        android:id="@+id/btnStartStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="2dip"
+        android:layout_margin="10dp"
+        style="@style/ButtonAppearance"
+        android:visibility="visible" />
+
+
+</RelativeLayout>
+    <View
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dark_grey"/>
+</LinearLayout>

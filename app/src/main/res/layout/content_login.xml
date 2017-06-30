@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                tools:context="com.transility.welloculus.ui.LoginActivity">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_inter_group_separation"
+        android:layout_below="@+id/imageViewAppMainCognitoIcon"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/space_1" />
+
+     <ImageView
+        android:layout_marginTop="@dimen/activity_up_image_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewAppMainTitle"
+        android:layout_below="@+id/space_1"
+        android:layout_centerHorizontal="true"
+         android:scaleType="centerInside"
+         android:adjustViewBounds="true"
+        android:src="@drawable/logo"/>
+
+   <!-- <ImageView
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="30dp"
+        android:id="@+id/textViewAppMainTitle"
+        android:layout_below="@+id/space_1"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/brand"/>-->
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_inter_group_separation"
+        android:id="@+id/space"
+        android:layout_below="@+id/textViewAppMainTitle"
+   />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/app_main_desc"
+        android:id="@+id/textView"
+        android:layout_below="@+id/space"
+        android:layout_centerHorizontal="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_inter_group_separation"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/space2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_size_small"
+        android:text=" "
+        android:id="@+id/textViewUserIdLabel"
+        android:layout_below="@+id/space2"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_text_height"
+        android:paddingLeft="@dimen/activity_text_padding"
+        android:paddingRight="@dimen/activity_text_padding"
+        android:id="@+id/editTextUserId"
+        android:layout_below="@+id/textViewUserIdLabel"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/text_border_selector"
+        android:hint="Username"
+        android:inputType="textPersonName"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_padding"
+        android:text=" "
+        android:textColor="@color/alert"
+        android:id="@+id/textViewUserIdMessage"
+        android:layout_below="@+id/editTextUserId"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:textSize="@dimen/activity_text_size_small"
+        android:id="@+id/textViewUserPasswordLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textViewUserIdMessage" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_text_height"
+        android:paddingLeft="@dimen/activity_text_padding"
+        android:paddingRight="@dimen/activity_text_padding"
+        android:id="@+id/editTextUserPassword"
+        android:layout_below="@+id/textViewUserPasswordLabel"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/text_border_selector"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_padding"
+        android:text=" "
+        android:textColor="@color/alert"
+        android:id="@+id/textViewUserPasswordMessage"
+        android:layout_below="@+id/editTextUserPassword"
+        android:layout_centerHorizontal="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_intra_group_separation"
+        android:layout_below="@+id/textViewUserPasswordMessage"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/space4" />
+
+    <Button
+        style="@style/ButtonAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/signin_title"
+        android:textAllCaps="false"
+        android:id="@+id/buttonLogIn"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/space4"
+        android:onClick="logIn"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/medium_font"
+        android:layout_below="@+id/buttonLogIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="SignUp"
+            android:textColor="@color/button_default"
+            android:textSize="15dp"
+            android:id="@+id/textViewUserSignUp"
+            android:clickable="true"
+            android:onClick="signUp"/>
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Forgot password"
+            android:textColor="@color/button_default"
+            android:textSize="15dp"
+            android:id="@+id/textViewUserForgotPassword"
+            android:clickable="true"
+
+            android:layout_below="@+id/space6"
+            android:onClick="forgotPassword"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,114 @@
+apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
+apply plugin: "org.sonarqube"
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+}
+
+def coverageSourceDirs = [
+        'src'
+]
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.transility.imedicos"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled true
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+dependencies {
+    testCompile "org.mockito:mockito-core:1.9.5"
+    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
+    testCompile 'org.robolectric:robolectric:3.1'
+    compile 'com.google.code.gson:gson:2.2.+'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile files('libs/HxMBT.jar')
+    compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.3.2'
+    compile 'org.achartengine:achartengine:1.2.0'
+    compile 'net.zetetic:android-database-sqlcipher:3.5.7@aar'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+}
+
+def androidJarPath;
+afterEvaluate {
+    def rootDir = project.rootDir
+    def localProperties = new File(rootDir, "local.properties")
+    if (localProperties.exists()) {
+        Properties properties = new Properties()
+        localProperties.withInputStream { instr ->
+            properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        androidJarPath = sdkDir + "/platforms/" + android.compileSdkVersion + "/android.jar"
+androidJarPath = androidJarPath +"," + "build/intermediates/exploded-aar/**/classes.jar";
+
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://172.26.39.96:9000"
+        property "sonar.projectName", "EE_HealthCare_Android"
+        property "sonar.projectKey", "com.transility.imedicos"
+        property "sonar.projectVersion", "1.0"
+        property "sonar.sources","src/main/java"
+        property 'sonar.sourceEncoding', 'UTF-8'
+        property 'sonar.language', 'java'
+        property "sonar.exclusions", "build/**,**/*.png"
+        property "sonar.java.libraries", androidJarPath
+        property "sonar.libraries",androidJarPath
+        property "sonar.java.test.libraries", androidJarPath
+    }
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+    // class R is used, but usage will not be covered, so ignore this class from report
+    // This differs per plugin version (0.10 -> 0.11)
+    // have very different fileTrees.
+    classDirectories = fileTree(
+            dir: './build/intermediates/classes/debug/',
+            excludes: ['**/R*.class',
+                       '**/BuildConfig.class'
+            ]
+    )
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files('build/jacoco/testDebugUnitTest.exec')
+//    afterEvaluate {
+//        // just clean up coveralls dashboard, following reports are not of interest
+//        testDebugUnitTest.reports.junitXml.enabled = false
+//    }
+}
+

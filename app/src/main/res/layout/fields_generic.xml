@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+              android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_size_small"
+        android:id="@+id/textViewUserDetailLabel"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@drawable/text_border_selector"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/activity_text_height"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="@dimen/activity_text_padding"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/activity_text_padding"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/editTextUserDetailInput"
+
+         />
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/activity_text_padding"
+            android:background="@android:drawable/ic_menu_edit"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_padding"
+        android:text=" "
+        android:textColor="@color/alert"
+        android:id="@+id/textViewUserDetailMessage"
+        android:layout_below="@+id/editTextUserDetailInput"
+        android:layout_centerHorizontal="true" />
+
+
+</LinearLayout>

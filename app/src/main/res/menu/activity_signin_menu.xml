@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.amazonaws.youruserpools.MainActivity">
+    <item
+        android:visible="false"
+        android:id="@+id/user_usignup_confirm"
+        android:orderInCategory="200"
+        android:title="Confirm Signup"
+
+        app:showAsAction="collapseActionView"></item>
+    <item
+        android:id="@+id/user_about_app"
+        android:orderInCategory="200"
+        android:title="About App"
+        app:showAsAction="collapseActionView"></item>
+</menu>

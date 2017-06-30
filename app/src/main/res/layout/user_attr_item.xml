@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <EditText
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:visibility="gone"
+        android:textSize="@dimen/medium_font"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:id="@+id/user_attr_text"/>
+
+    <Spinner
+        android:layout_margin="@dimen/activity_horizontal_margin"
+    android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingLeft="@dimen/activity_text_padding"
+        android:paddingRight="@dimen/activity_text_padding"
+        android:id="@+id/usr_gender_spin"
+        android:entries="@array/gender_array"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/spinner"
+        android:hint="Gender"
+        android:inputType="textPersonName"/>
+
+
+</LinearLayout>

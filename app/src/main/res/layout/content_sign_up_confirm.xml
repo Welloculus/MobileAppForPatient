@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                tools:context="com.transility.welloculus.ui.SignUpConfirm"
+                tools:showIn="@layout/activity_sign_up_confirm">
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_inter_group_separation"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/space_confirm_1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/activity_text_size_small"
+        android:text="@string/code_sent"
+        android:id="@+id/textViewConfirmSubtext_1"
+        android:layout_below="@id/space_confirm_1"
+        android:layout_centerHorizontal="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_intra_group_separation"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textViewConfirmSubtext_1"
+        android:id="@+id/space_confirm_1B" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textSize="@dimen/activity_text_size_small"
+        android:text="@string/enter_confirmation_code"
+        android:id="@+id/textViewConfirmSubtext_2"
+        android:layout_below="@id/space_confirm_1B"
+        android:layout_centerHorizontal="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/space_confirm_1B"
+        android:id="@+id/space_confirm_1A" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_size_small"
+        android:text=" "
+        android:id="@+id/textViewConfirmUserIdLabel"
+        android:layout_below="@id/space_confirm_1A"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_text_height"
+        android:paddingLeft="@dimen/activity_text_padding"
+        android:paddingRight="@dimen/activity_text_padding"
+        android:id="@+id/editTextConfirmUserId"
+        android:layout_below="@id/textViewConfirmUserIdLabel"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/text_border_selector"
+        android:hint="Username"
+        android:inputType="textPersonName"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_padding"
+        android:text=" "
+        android:textColor="@color/alert"
+        android:id="@+id/textViewConfirmUserIdMessage"
+        android:layout_below="@id/editTextConfirmUserId"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_size_small"
+        android:text=" "
+        android:id="@+id/textViewConfirmCodeLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textViewConfirmUserIdMessage" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_text_height"
+        android:paddingLeft="@dimen/activity_text_padding"
+        android:paddingRight="@dimen/activity_text_padding"
+        android:id="@+id/editTextConfirmCode"
+        android:layout_below="@id/textViewConfirmCodeLabel"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/text_border_selector"
+        android:hint="Confirmation mCode"
+        android:inputType="number"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/activity_text_padding"
+        android:text=" "
+        android:textColor="@color/alert"
+        android:id="@+id/textViewConfirmCodeMessage"
+        android:layout_below="@id/editTextConfirmCode"
+        android:layout_centerHorizontal="true" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_intra_group_separation"
+        android:layout_below="@id/textViewConfirmCodeMessage"
+        android:id="@+id/space_confirm_2" />
+
+    <Button
+        style="@style/ButtonAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm_title"
+        android:textAllCaps="false"
+        android:id="@+id/confirm_button"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/space_confirm_2"
+        />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/confirm_button"
+        android:id="@+id/space_confirm_3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Resend mCode"
+        android:textAllCaps="false"
+        android:textColor="@color/button_default"
+        android:textSize="15dp"
+        android:id="@+id/resend_confirm_req"
+        android:layout_below="@+id/space_confirm_3"
+        />
+
+</RelativeLayout>

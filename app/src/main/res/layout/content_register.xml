@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:id="@+id/scroll_register_user"
+            android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="30dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.transility.welloculus.ui.AboutUsActivity"
+        tools:showIn="@layout/activity_register_user">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Enter the following information to sign up."
+            android:id="@+id/textViewRegMessage"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="32dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=" "
+            android:id="@+id/textViewRegUserIdLabel"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_text_height"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/editTextRegUserId"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_border_selector"
+            android:hint="Username"
+            android:inputType="textPersonName"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:color="@color/alert"
+            android:textColor="@color/alert"
+            android:id="@+id/textViewRegUserIdMessage"
+
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=" "
+            android:id="@+id/textViewRegUserPasswordLabel"
+            android:layout_centerHorizontal="true"
+            />
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_text_height"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/editTextRegUserPassword"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_border_selector"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:textColor="@color/alert"
+            android:id="@+id/textViewUserRegPasswordMessage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=" "
+            android:id="@+id/textViewRegGivenNameLabel"
+            android:layout_centerHorizontal="true"
+            />
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_text_height"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/editTextRegGivenName"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_border_selector"
+            android:hint="Given name"
+            android:inputType="textPersonName"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:textColor="@color/alert"
+            android:id="@+id/textViewRegGivenNameMessage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=" "
+            android:id="@+id/textViewFamiltyNameLabel"
+            android:layout_centerHorizontal="true"
+            />
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_text_height"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/editTextFamilyName"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_border_selector"
+            android:hint="Family name"
+            android:inputType="textPersonName"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:textColor="@color/alert"
+            android:id="@+id/textViewFamilyNameMessage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=" "
+            android:id="@+id/textViewBirthdayLabel"
+            android:layout_centerHorizontal="true"
+            />
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_text_height"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/editTextBirthDay"
+            android:drawableEnd="@android:drawable/ic_menu_edit"
+            android:drawableRight="@android:drawable/ic_menu_edit"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_border_selector"
+            android:hint="Birthdate (dd/mm/yyyy)"
+            android:inputType="none"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:textColor="@color/alert"
+            android:id="@+id/textViewBirthdayMessage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=""
+            android:id="@+id/textViewGenderLabel"
+            android:layout_centerHorizontal="true"
+            />
+
+
+        <Spinner
+
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/spintGender"
+            android:entries="@array/gender_array"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/spinner"
+            android:hint="Gender"
+            android:inputType="textPersonName"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:textColor="@color/alert"
+            android:id="@+id/textViewGenderMessage"
+            android:layout_centerHorizontal="true" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=" "
+            android:id="@+id/textViewRegEmailLabel"
+            android:layout_centerHorizontal="true"
+            />
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_text_height"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/editTextRegEmail"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_border_selector"
+            android:hint="Email"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:textColor="@color/alert"
+            android:id="@+id/textViewRegEmailMessage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=" "
+            android:id="@+id/textViewRegPhoneLabel"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/textViewRegEmailMessage" />
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_text_height"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/editTextRegPhone"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_border_selector"
+            android:hint="Phone number"
+            android:inputType="phone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:textColor="@color/alert"
+            android:id="@+id/textViewRegPhoneMessage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_size_small"
+            android:text=" "
+            android:id="@+id/textViewRegCityLabel"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/textViewRegEmailMessage" />
+
+        <EditText
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_text_height"
+            android:paddingLeft="@dimen/activity_text_padding"
+            android:paddingRight="@dimen/activity_text_padding"
+            android:id="@+id/editTextRegCity"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_border_selector"
+            android:hint="City"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/activity_text_padding"
+            android:text=" "
+            android:textColor="@color/alert"
+            android:id="@+id/textViewRegCityMessage"
+            android:layout_centerHorizontal="true" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_intra_group_separation"
+            android:id="@+id/space_about_2" />
+
+        <Button
+            style="@style/ButtonAppearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_title"
+            android:textAllCaps="false"
+            android:id="@+id/signUp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/space_about_2"
+            />
+
+
+    </LinearLayout>
+</ScrollView>

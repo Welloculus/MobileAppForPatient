@@ -1,0 +1,197 @@
+<resources>
+    <string name="app_name">Welloculus</string>
+
+    <!-- Strings related to login -->
+    <string name="signin_title">Sign in</string>
+    <string name="prompt_userId">UserId</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_user_email">Enter Email</string>
+    <string name="select_device">Select Attribute : </string>
+    <string name="action_register_user">New User? Register here!</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_up">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."
+    </string>
+    <string name="select_provider_prompt">Select Provider</string>
+
+    <string-array name="providers_array">
+        <item>Provider1</item>
+        <item>Provider2</item>
+        <item>Provider3</item>
+
+    </string-array>
+
+    <string name="app_main_screen">Sign in</string>
+    <string name="app_main_screen_title">Health Care App</string>
+    <string name="app_main_desc">Login to Healthcare.</string>
+    <string name="more_info"></string>
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_user">UserActivity</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="Menu">Menu</string>
+    <string name="title_activity_about_app">AboutApp</string>
+    <string name="about">We are ‘end-to-end’ IT solution provider, engaging on development, integration and implementation of Software for Healthcare companies. We deliver software and custom solutions for web, mobile and custom hand held devices. We have seasoned team of professionals, backed with rich experience across various healthcare segments. We have been working with some of the leading healthcare companies, makes us a right partner for your handshake with technology.</string>
+    <string name="title_activity_sign_up_confirm">SignUpConfirm</string>
+    <string name="title_activity_mfa">MFAActivity</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="title_activity_verify">VerifyActivity</string>
+    <string name="title_activity_add_attribute">AddAttributeActivity</string>
+    <string name="title_activity_device_settings">DeviceSettings</string>
+    <string name="title_activity_new_password">NewPassword</string>
+    <string name="setting_password_message">"Setting new password..."</string>
+    <string name="signing_message">Signing in...</string>
+    <string name="exit">exit</string>
+    <string name="sign_in_failed">Sign-in failed</string>
+    <string name="pass_changed_successfully">Password successfully changed!</string>
+    <string name="forgot_pass_failed">Forgot password failed</string>
+    <string name="user_not_confirm">User is not confirm</string>
+    <string name="cannot_be_empty">  cannot be empty  </string>
+    <string name="password_did_not_match">Password did not match</string>
+    <string name="credentials_did_not_match">Credentials did not match</string>
+    <string name="not_valid"> is not valid</string>
+    <string name="enter_password"> enter password </string>
+    <string name="sign_up_title"> Sign up </string>
+    <string name="number_label">with country mCode and no separators</string>
+    <string name="signup_message">Signing up...</string>
+    <string name="signup_successful">Sign up successful!</string>
+    <string name="confirmed">has been Confirmed</string>
+    <string name="signup_failed">Sign up failed</string>
+    <string name="set_password">Set password</string>
+    <string name="forgot_pass_title">Forgot password</string>
+    <string name="devices_title">My Devices</string>
+    <string name="devices_desc">(You will get list of all the associated medical devices here.)</string>
+    <string name="ok">OK</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">CANCEL</string>
+
+    <string name="code_sent_message">Code was sent to</string>
+    <string name="code_sent_via"> via </string>
+    <string name="about_app_title"> About </string>
+    <string name="confirm_title"> Confirm SignUp </string>
+    <string name="enter_confirmation_code">Please enter the mCode below to confirm your account.</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="user_profile_title">User Profile</string>
+    <string name="updating_message">Updating...</string>
+    <string name="deleting_message">Deleting...</string>
+    <string name="could_not_fetch_user_data">Could not fetch user details!</string>
+    <string name="remember_device">Remember this device?</string>
+    <string name="remembering_device">Remembering this device...</string>
+    <string name="updated">Updated</string>
+    <string name="update_failed">Update failed</string>
+    <string name="delete_message">Deleted</string>
+    <string name="delete_failed">Delete failed</string>
+    <string name="attr_updated">The updated attributes has to be verified</string>
+    <string name="failed_to_updated">Failed to update device mStatus</string>
+    <string name="you_are_signed_in">You are signed in</string>
+
+    <string name="add_attr_title">Add attribute</string>
+    <string name="adding">Adding</string>
+    <string name="successfully_added">Successfully added</string>
+    <string name="failed_to_add">Failed to add attribute</string>
+    <string name="no_more_to_add">No more attributes to add</string>
+    <string name="refresh">refresh</string>
+    <string name="verify_attribute">Verify attribute</string>
+    <string name="email_verified">Email verified</string>
+    <string name="send_code">Send Code</string>
+    <string name="resending_code">Resending Code</string>
+    <string name="phone_verified">Phone number verified</string>
+    <string name="resend_code">Resend</string>
+    <string name="requesting_code">Requesting verification mCode...</string>
+    <string name="verifying">Verifying.....</string>
+    <string name="verification_code_request_failed">Verfication mCode request failed!</string>
+    <string name="verification_failed">Verification failed</string>
+    <string name="about_title">About Us</string>
+    <string name="change_pass_title">Change password</string>
+    <string name="changing_pass">Changing password...</string>
+    <string name="success">Success!</string>
+    <string name="password_has_been_changed">Password has been changed</string>
+    <string name="password_changed">Your password was changed</string>
+    <string name="password_changed_failed">Password change failed</string>
+    <string name="failed_to_update_device">Failed to update device status</string>
+    <string name="verification_title">Verification</string>
+    <string name="verification_code_sent">Verification code has been sent via</string>
+    <string name="welcome">Welcome</string>
+    <string name="error">Error</string>
+    <string name="enter_all_required_attr">Enter all required attributed</string>
+    <string name="settings_title">Settings</string>
+    <string name="reports_title">Reports</string>
+    <string name="all_devices">All Devices</string>
+    <string name="report_desc">(You will get the reports generated by all associated medical devices here.)</string>
+    <string name="all_device_desc">(You will get the all devices list)</string>
+    <string name="change_mfa_setting">Changing SMS MFA setting...</string>
+    <string name="could_not_change_mfa_setting">Could not change MFA mSettings</string>
+    <string name="mfa_setting_changed">MFA mSettings changed</string>
+    <string name="enable">Enabled</string>
+    <string name="disable">Disabled</string>
+    <string name="confirmation_failed">Confirmation failed!</string>
+    <string name="confirm_your_account">Confirm your account</string>
+    <string name="confirming_account">Confirming your account</string>
+    <string name="code_sent_to">Code sent to</string>
+    <string name="code_sent">Confirmation code sent.</string>
+    <string name="code_resend_failed">Confirmation code resend failed</string>
+    <string name="code_request_failed">Confirmation code request has failed</string>
+    <string name="request_for_confirm_code">Request for a confirmation code or confirm with the code you already have.</string>
+
+    <!-- Bluetooth Device Connection-->
+    <string name="no_connected_device_found">Device not found.\nPlease make sure selected device has bluetooth enabled and is within the bluetooth range.</string>
+    <string name="bluetooth_should_be_enabled">Please turn on the bluetooth and connect again.</string>
+    <string name="searching_bluetooth_devices">Searching bluetooth devices. Please wait..</string>
+    <string name="found_the_device">Found the device </string>
+    <string name="connecting">Connecting...</string>
+    <string name="device_not_paired">Device is not paired , please pair the device.</string>
+    <string name="device_paired">Device is paired successfully.</string>
+    <string name="device_pairing_failure">Device is not paired you will not be able connect.</string>
+    <string name="bluetooth_requires_location_permission">Please allow location permission, you will not be able to connect.</string>
+    <string name="device_connected">Device is connected successfully.</string>
+    <string name="device_disconnected">Device is disconnected successfully.</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect_device_tittle">You will not be able to get the health information!</string>
+    <string name="disconnect_device_message">Are you sure you want to disconnect ?</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="no_device_found">No assigned device found.</string>
+    <string name="no_report_found">No reports found.</string>
+    <string name="fetching_device_list">Fetching device list</string>
+    <string name="phone_not_avail">phone number is not available</string>
+
+    <string name="email_not_avail">email id is not available</string>
+    <string name="fetching_profile">Fetching profile</string>
+    <string name="fetching_report_list">Fetching report</string>
+    <string name="auto_login_msg">AutoLogin</string>
+    <string name="bluetooth_settings_problem">Please check your bluetooth settings and try again.</string>
+    <string name="bluetooth_state_not_ready">Bluetooth is not yet activated.Please try again connecting device.</string>
+    <string name="bluetooth_disable_turn_on">Please enable the bluetooth</string>
+    <string name="another_device_already_connected">Another Device is already connected</string>
+    <string name="not_internet_connectivity">No internet connectivity found!!</string>
+    <string name="confirm_proceed_connect_new_device">Are you sure you want to connect this device.Another device will get automatically disconnected. Are you sure you want to proceed ?</string>
+    <string name="zephyr_invalid_data">Please check the device is properly strapped and connected to body , Given wrong heart rate : </string>
+    <string name="interval_title">Health data sync Interval\n(In Minutes)</string>
+    <string name="select_interval_title">Select Health data sync Interval\n(In Minutes)</string>
+    <string name="bluetooth_is_disabled">Bluetooth is disabled.</string>
+    <string name="heart_rate_is">Heart rate is</string>
+    <string name="health_data_is_posted_to_server">Your health data report is send to server.</string>
+    <string name="internal_error">Some internal error occured.Please try again</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="settings_mfa_description">(you will get OTP every time when you login)</string>
+    <string name="settings_interval_description">(after completion of set interval your data will get send to server)</string>
+    <string-array name="devices_arry">
+        <item>HeartBeat</item>
+        <item>Temperature</item>
+    </string-array>
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+</resources>

@@ -1,0 +1,129 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/green</item>
+
+        <item name="colorPrimaryDark">@color/dark_green</item>
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@color/green</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:itemBackground">@color/white</item>
+        <item name="android:itemTextAppearance">@style/MenuItemTextAppearance</item>
+        <item name="android:spinnerStyle">@style/SpinnerAppTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+
+        <!--  <item name="android:buttonStyle">@style/ButtonAppearance</item>-->
+    </style>
+
+    <style name="MenuItemTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/medium_font</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TitleTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/large_font</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LabelTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/medium_font</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ContentTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/medium_font</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="ButtonAppearance" parent="@android:style/Widget.Button">
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:padding">@dimen/medium_font</item>
+        <item name="android:textSize">@dimen/medium_font</item>
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textSize">20sp</item>
+        <item name="colorAccent">@color/grey</item>
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/grey</item>
+    </style>
+
+    <style name="AWSCognitoTheme" parent="AppTheme">
+        <item name="android:colorBackground">@color/toolbar_background</item>
+        <item name="android:textColor">@color/toolbar_items</item>
+    </style>
+
+    <style name="AppActionBar">
+        <item name="colorPrimary">@color/toolbar_background</item>
+        <item name="colorPrimaryDark">@color/toolbar_background</item>
+        <item name="colorAccent">@color/toolbar_items</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppNavigationBar">
+        <item name="android:colorBackground">@color/toolbar_background</item>
+        <item name="android:textColor">@color/toolbar_items</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TextViewMessage">
+        <item name="android:textColor">@color/alert</item>
+        <item name="android:textSize">@dimen/activity_text_padding</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="TextViewLabel">
+        <item name="android:textSize">@dimen/activity_text_size_small</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="SpinnerAppTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/spinner</item>
+        <item name="android:dropDownSelector">@drawable/spinner</item>
+    </style>
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">#f00</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">#00f</item>
+    </style>
+
+    <style name="myDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>
