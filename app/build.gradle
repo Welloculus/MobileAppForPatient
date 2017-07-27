@@ -41,7 +41,7 @@ android {
 }
 
 dependencies {
-    testCompile "org.mockito:mockito-core:1.9.5"
+    testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
     testCompile 'org.robolectric:robolectric:3.1'
     compile 'com.google.code.gson:gson:2.2.+'
@@ -54,6 +54,8 @@ dependencies {
     compile 'org.achartengine:achartengine:1.2.0'
     compile 'net.zetetic:android-database-sqlcipher:3.5.7@aar'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile files('libs/pclinklibrary.jar')
+    compile files('libs/pl2303lib.jar')
 }
 
 def androidJarPath;

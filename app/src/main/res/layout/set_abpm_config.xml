@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.taidoc.pclinklibrary.demo.view.KeyboardAwareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+	android:background="@android:color/white" >
+    
+    <LinearLayout
+        android:id="@+id/ll_btn"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentBottom="true"
+    	android:layout_marginTop="8dp"
+    	android:gravity="center" >
+    	
+        <Button
+            android:id="@+id/btn_write"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="write" />
+        
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:text="close" />
+    </LinearLayout>
+    
+    <ScrollView
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentTop="true"
+    	android:layout_above="@id/ll_btn"
+    	android:padding="16dp">
+    	
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical">
+	        
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/abpm_general" />
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_start_after" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data00"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:inputType="number"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_hours_of_study" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data01"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_normal_period" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data02"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="8dp"
+		        android:text="@string/abpm_daytime" />
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_start_hour" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data10"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:inputType="number"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_end_hour" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data11"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_period" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data12"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="8dp"
+		        android:text="@string/abpm_nighttime" />
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_start_hour" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data20"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:inputType="number"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_end_hour" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data21"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_period" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data22"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="8dp"
+		        android:text="@string/abpm_specialtime" />
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_start_hour" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data30"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:inputType="number"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_end_hour" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data31"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_period" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data32"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="8dp"
+		        android:text="@string/abpm_backlight" />
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_on_time" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data40"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:inputType="number"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_marginTop="4dp"
+		    	android:layout_marginLeft="8dp"
+		    	android:gravity="center|left" >
+		    	
+		        <TextView
+		            android:layout_width="130dp"
+		            android:layout_height="wrap_content"
+		            android:text="@string/abpm_dim" />
+		        
+		        <com.taidoc.pclinklibrary.demo.widget.edittext.AEditText
+			     	android:id="@+id/et_data41"
+				    android:layout_width="100dp"
+				    android:layout_height="wrap_content"
+				    android:layout_marginLeft="8dp"
+				    android:padding="4dp"
+				    android:maxLength="3"
+				    android:singleLine="true"
+				    android:background="@android:color/transparent" />
+		    </LinearLayout>
+		</LinearLayout>
+	</ScrollView>
+</com.taidoc.pclinklibrary.demo.view.KeyboardAwareRelativeLayout>
