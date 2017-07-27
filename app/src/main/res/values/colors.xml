@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+   <color name="lightGray">#FF909090</color>
+   <color name="bg_app">#323333</color>
     <color name="colorPrimary">@color/green</color>
     <color name="colorPrimaryDark">@color/green</color>
     <color name="colorAccent">#FF4081</color>

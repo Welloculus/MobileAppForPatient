@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.transility.welloculus">
 
+    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -17,7 +19,7 @@
 
     <uses-sdk
         android:targetSdkVersion="23"
-        android:minSdkVersion="14" />
+        android:minSdkVersion="18" />
 
     <application
         android:name="com.transility.welloculus.app.HealthCareApp"
@@ -71,7 +73,25 @@
         <activity   android:name="com.transility.welloculus.ui.ReportsActivity"
                    android:configChanges="keyboardHidden|orientation" android:screenOrientation="portrait" ></activity>
 
+        <activity
+            android:name="com.transility.welloculus.fora.PCLinkLibraryDemoActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <meta-data android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
 
+        </activity>
+        <activity
+            android:name="com.transility.welloculus.fora.PCLinkLibraryCommuTestActivity"
+            android:label="@string/command_test_menu"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name="com.transility.welloculus.fora.PCLinkLibraryCommuTestActivityForKNV"
+            android:label="@string/command_test_menu"
+            android:screenOrientation="portrait" >
+        </activity>
         <receiver
             android:name="com.transility.welloculus.app.receiver.HeartRateReceiver"
             android:exported="true">

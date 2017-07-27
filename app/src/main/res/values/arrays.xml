@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="BaudRate_Var">
+        <item >9600</item>
+        <item >19200</item>
+        <item >115200</item>
+    </string-array>
+    
+    <string-array name="IHBValue">
+        <item>Normal</item>
+        <item>IHB</item>
+        <item>Tachycardia or Bradycardia</item>
+        <item>Varied Heart Rate (±20%)</item>
+        <item>Atrail Fibrillation (AF)</item>
+    </string-array>
+    
+    <string-array name="battery_status">
+        <item >Not support</item>
+        <item >Good</item>
+        <item >Low</item>
+        <item >Dead</item>
+    </string-array>
+    
+    <integer-array name="audio_error_nums">
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>30</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>44</item>
+        <item>46</item>
+    </integer-array>
+    
+    <string-array name="audio_errors">
+        <item>@string/err_23</item>
+        <item>@string/err_24</item>
+        <item>@string/err_25</item>
+        <item>@string/err_26</item>
+        <item>@string/err_27</item>
+        <item>@string/err_28</item>
+        <item>@string/err_30</item>
+        <item>@string/err_40</item>
+        <item>@string/err_41</item>
+        <item>@string/err_42</item>
+        <item>@string/err_44</item>
+        <item>@string/err_46</item>
+    </string-array>
+    
+    <string-array name="abpm_types">
+        <item>@string/abpm_general</item>
+        <item>@string/abpm_daytime</item>
+        <item>@string/abpm_nighttime</item>
+        <item>@string/abpm_specialtime</item>
+        <item>@string/abpm_backlight</item>
+    </string-array>
+</resources>

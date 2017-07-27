@@ -22,6 +22,7 @@ import com.transility.welloculus.R;
 import com.transility.welloculus.app.HealthCareApp;
 import com.transility.welloculus.bluetooth.BluetoothHandler;
 import com.transility.welloculus.db.DBHelper;
+import com.transility.welloculus.fora.PCLinkLibraryDemoActivity;
 import com.transility.welloculus.utils.AppUtility;
 import com.transility.welloculus.utils.Constants;
 
@@ -46,6 +47,7 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout mllDeviceConnect;
     private LinearLayout mllAllDeviceConnect;
     private LinearLayout mllGetReports;
+    private LinearLayout mllForaDevices;
     private Context mContext;
 
     @Override
@@ -237,6 +239,10 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
                         });
                 alertDialog.show();
                 break;
+            case R.id.btn_fora_devices:
+                intent = new Intent(mContext, PCLinkLibraryDemoActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -250,6 +256,8 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
         mllAllDeviceConnect.setOnClickListener(this);
         mllGetReports = (LinearLayout) findViewById(R.id.btn_get_reports);
         mllGetReports.setOnClickListener(this);
+        mllForaDevices = (LinearLayout) findViewById(R.id.btn_fora_devices);
+        mllForaDevices.setOnClickListener(this);
         mContext = this;
         // Set navigation drawer for this screen
         mDrawer = (DrawerLayout) findViewById(R.id.user_drawer_layout);
