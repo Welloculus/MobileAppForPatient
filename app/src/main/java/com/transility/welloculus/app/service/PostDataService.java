@@ -33,6 +33,7 @@ import java.util.Map;
  */
 public class PostDataService extends BroadcastReceiver {
     private final String KEY_ITEMS = "Items";
+    private final String KEY_PROVIDERID = "providerId";
     private final String KEY_HEART_RATE = "heart_rate";
     private final String KEY_HEALTH_VITAL_KEY = "health_vital_key";
     private final String KEY_ENTRY_CREATED = "entry_created";
@@ -61,6 +62,7 @@ public class PostDataService extends BroadcastReceiver {
                 minHeartRate = AppUtility.CRITICAL_MAX_HEART_RATE;
                 maxHeartRate = 0;
                 if (healthInfoData != null) {
+                    postJsonObject.put(KEY_PROVIDERID, "123");
                     postJsonObject.put(KEY_ITEMS, createDevicePostData(deviceId, healthInfoData));
                 }
                 it.remove();

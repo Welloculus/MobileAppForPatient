@@ -68,8 +68,8 @@ public class RetrieveDataFromServer extends AsyncTask<Object, Void, BaseResponse
     }
 
     @Override
-    protected BaseResponse doInBackground(Object... arg0) {/*
-        //CoreHttpClient coreHttpClient = new CoreHttpClient();
+    protected BaseResponse doInBackground(Object... arg0) {
+        CoreHttpClient coreHttpClient = new CoreHttpClient();
         mBaseResponse = coreHttpClient.execute(mRequest);
         try {
             mBaseResponse.processResponse(arg0);
@@ -78,8 +78,7 @@ public class RetrieveDataFromServer extends AsyncTask<Object, Void, BaseResponse
            // Log.e(TAG, Log.getStackTraceString(e));
         }
         return mBaseResponse;
-    */
-    return null;
+
     }
 
     @Override
