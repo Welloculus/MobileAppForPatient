@@ -23,6 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,11 +35,11 @@ import java.util.Map;
  * Created by arpit.garg on 4/5/2017.
  */
 public class PostDataService extends BroadcastReceiver {
-    private final String KEY_ITEMS = "Items";
-    private final String KEY_PROVIDERID = "providerId";
+    private final String KEY_ITEMS = "data";
+    private final String KEY_PROVIDERID = "provider_id";
     private final String KEY_HEART_RATE = "heart_rate";
-    private final String KEY_HEALTH_VITAL_KEY = "health_vital_key";
-    private final String KEY_ENTRY_CREATED = "entry_created";
+    private final String KEY_HEALTH_VITAL_KEY = "data";
+    private final String KEY_ENTRY_CREATED = "time";
     private Context context;
     private int minHeartRate = 0;
     private int maxHeartRate = 0;
@@ -62,7 +65,13 @@ public class PostDataService extends BroadcastReceiver {
                 minHeartRate = AppUtility.CRITICAL_MAX_HEART_RATE;
                 maxHeartRate = 0;
                 if (healthInfoData != null) {
+
                     postJsonObject.put(KEY_PROVIDERID, "123");
+                    postJsonObject.put("user_id", "1");
+                    postJsonObject.put("device_id", "HXM-Zypher");
+                    postJsonObject.put("user_device_id", deviceId);
+                    postJsonObject.put("data_type", "heart_rate");
+
                     postJsonObject.put(KEY_ITEMS, createDevicePostData(deviceId, healthInfoData));
                 }
                 it.remove();
@@ -98,7 +107,11 @@ public class PostDataService extends BroadcastReceiver {
             itemJson.put(KEY_ENTRY_CREATED, heartRateInfo.getTime());
             dataArray.put(itemJson);
         }
-        deviceObject.put(deviceId, dataArray);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String output = dateFormat.format(date);
+        System.out.println(output);
+        deviceObject.put(output, dataArray);
         return deviceObject;
     }
 
