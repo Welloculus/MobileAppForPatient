@@ -1,13 +1,13 @@
-/*
 package com.transility.welloculus.httpclient;
 
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.amazonaws.util.IOUtils;
-import com.transility.welloculus.cognito.CognitoHelper;
 import com.transility.welloculus.httpresponse.BaseResponse;
 import com.transility.welloculus.utils.AppUtility;
+import com.transility.welloculus.httpclient.Request;
+import com.transility.welloculus.httpclient.UrlConfig;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -20,27 +20,24 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-*/
 /**
  * The type Core http client.
- *//*
-
+ */
 public class CoreHttpClient implements UrlConfig {
     private static final String UTF_8 = "UTF-8";
     private static final String TAG = CoreHttpClient.class.getSimpleName();
     private static final int CONNECTION_TIME_OUT = 15 * 1000;
     private HttpURLConnection mCon;
 
-    */
-/**
+    /**
      * Execute base response.
      *
      * @param req the req
      * @return the base response
-     *//*
-
+     */
     public BaseResponse execute(Request req) {
-        String errorMessage = "";
+        String errorMessage;
+        errorMessage = "";
         URL obj = null;
         BaseResponse baseResponse = BaseResponse.getResponseDO(req.getRequestType());
 
@@ -51,7 +48,7 @@ public class CoreHttpClient implements UrlConfig {
             obj = new URL(req.getUri());
             mCon = (HttpURLConnection) obj.openConnection();
             mCon.setConnectTimeout(CONNECTION_TIME_OUT);
-            mCon.setRequestProperty("Authorization", "" + CognitoHelper.getCurrSession().getIdToken().getJWTToken());
+           // mCon.setRequestProperty("Authorization", "" + CognitoHelper.getCurrSession().getIdToken().getJWTToken());
             mCon.setRequestProperty("Content-Type", "application/json");
 
             switch (req.getMethod()) {
@@ -89,7 +86,7 @@ public class CoreHttpClient implements UrlConfig {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
-                    Log.e(AppUtility.TAG, Log.getStackTraceString(e));
+                   // Log.e(AppUtility.TAG, Log.getStackTraceString(e));
                 }
             }
             // make connection close
@@ -149,4 +146,4 @@ public class CoreHttpClient implements UrlConfig {
         return postData;
     }
 
-}*/
+}
