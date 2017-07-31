@@ -70,9 +70,15 @@ public class PostDataService extends BroadcastReceiver {
                     postJsonObject.put("user_id", "1");
                     postJsonObject.put("device_id", "HXM-Zypher");
                     postJsonObject.put("user_device_id", deviceId);
-                    postJsonObject.put("data_type", "heart_rate");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = new Date();
+                    String output = dateFormat.format(date);
+                    System.out.println(output);
+                    postJsonObject.put("date", output);
 
-                    postJsonObject.put(KEY_ITEMS, createDevicePostData(deviceId, healthInfoData));
+//                    postJsonObject.put("data_type", "heart_rate");
+
+                    postJsonObject.put(KEY_HEART_RATE, createDevicePostData(deviceId, healthInfoData));
                 }
                 it.remove();
             }
@@ -87,7 +93,7 @@ public class PostDataService extends BroadcastReceiver {
         retriveDataFromServer.execute();
     }
 
-    private JSONObject createDevicePostData(String deviceId, List<HeartRateInfoBean> healthInfoData) throws JSONException {
+    private JSONArray createDevicePostData(String deviceId, List<HeartRateInfoBean> healthInfoData) throws JSONException {
         JSONObject deviceObject = new JSONObject();
         JSONArray dataArray = new JSONArray();
         for (int i = 0; i < healthInfoData.size(); i++) {
@@ -102,17 +108,14 @@ public class PostDataService extends BroadcastReceiver {
                 minHeartRate = heartRateInfo.getHeartRate();
             }
             JSONObject itemJson = new JSONObject();
-            healthJson.put(KEY_HEART_RATE, heartRateInfo.getHeartRate());
-            itemJson.put(KEY_HEALTH_VITAL_KEY, healthJson);
+//            healthJson.put(KEY_HEART_RATE, heartRateInfo.getHeartRate());
+//            itemJson.put(KEY_HEALTH_VITAL_KEY, healthJson);
+            itemJson.put(KEY_HEART_RATE, heartRateInfo.getHeartRate());
             itemJson.put(KEY_ENTRY_CREATED, heartRateInfo.getTime());
             dataArray.put(itemJson);
         }
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        String output = dateFormat.format(date);
-        System.out.println(output);
-        deviceObject.put(output, dataArray);
-        return deviceObject;
+//        deviceObject.put(KEY_HEART_RATE, dataArray);
+        return dataArray;
     }
 
     private class SendDataResponseHandler implements HttpResponseHandler {
