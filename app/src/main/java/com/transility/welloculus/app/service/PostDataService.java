@@ -30,7 +30,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import javax.crypto.spec.SecretKeySpec;
 /**
  * Created by arpit.garg on 4/5/2017.
  */
@@ -43,6 +50,7 @@ public class PostDataService extends BroadcastReceiver {
     private Context context;
     private int minHeartRate = 0;
     private int maxHeartRate = 0;
+    private static final String keyString = "wellie";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -77,13 +85,16 @@ public class PostDataService extends BroadcastReceiver {
                     postJsonObject.put("date", output);
 
 //                    postJsonObject.put("data_type", "heart_rate");
-
-                    postJsonObject.put(KEY_HEART_RATE, createDevicePostData(deviceId, healthInfoData));
+                    JSONArray createDevicePostDataFormat = createDevicePostData(deviceId, healthInfoData);
+                    SecretKey secKey = getSecretEncryptionKey();
+                    byte[] cipherText = encryptText(createDevicePostDataFormat, secKey);
+                    String encodedTextString =  new String(cipherText);
+                    postJsonObject.put(KEY_HEART_RATE, encodedTextString);
                 }
                 it.remove();
             }
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Log.e(AppUtility.TAG, Log.getStackTraceString(e));
         }
         String postData = postJsonObject.toString();
@@ -118,6 +129,54 @@ public class PostDataService extends BroadcastReceiver {
         return dataArray;
     }
 
+
+
+    /**
+     * gets the AES encryption key. In your actual programs, this should be safely
+     * stored.
+     * @return
+     * @throws Exception
+     */
+    public static SecretKey getSecretEncryptionKey() throws NoSuchAlgorithmException, UnsupportedEncodingException{
+        byte[] key = (keyString).getBytes("UTF-8");
+        MessageDigest sha = MessageDigest.getInstance("SHA-1");
+        key = sha.digest(key);
+        key = Arrays.copyOf(key, 16); // use only first 128 bit
+
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+        return secretKeySpec;
+    }
+    /**
+     * Encrypts plainText in AES using the secret key
+     * @param plainText
+     * @param secKey
+     * @return
+     * @throws Exception
+     */
+    public static byte[] encryptText(JSONArray plainText,SecretKey secKey) throws Exception{
+        // AES defaults to AES/ECB/PKCS5Padding in Java 7
+        Cipher aesCipher = Cipher.getInstance("AES");
+        aesCipher.init(Cipher.ENCRYPT_MODE, secKey);
+        byte[] byteCipherText = aesCipher.doFinal(plainText.toString().getBytes());
+        return byteCipherText;
+    }
+
+    /**
+     * Decrypts encrypted byte array using the key used for encryption.
+     * @param byteCipherText
+     * @param secKey
+     * @return
+     * @throws Exception
+     */
+    public static String decryptText(byte[] byteCipherText, SecretKey secKey) throws Exception {
+        // AES defaults to AES/ECB/PKCS5Padding in Java 7
+        Cipher aesCipher = Cipher.getInstance("AES");
+        aesCipher.init(Cipher.DECRYPT_MODE, secKey);
+        byte[] bytePlainText = aesCipher.doFinal(byteCipherText);
+        return new String(bytePlainText);
+    }
+
+
     private class SendDataResponseHandler implements HttpResponseHandler {
         @Override
         public void handleResponse(BaseResponse baseResponse) {
@@ -142,5 +201,7 @@ public class PostDataService extends BroadcastReceiver {
             Log.e(AppUtility.TAG, "handleError : " + baseResponse);
             Log.e(AppUtility.TAG, "handleError : " + baseResponse.getmStatus());
         }
+
+
     }
 }
