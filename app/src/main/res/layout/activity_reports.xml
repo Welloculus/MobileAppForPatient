@@ -29,6 +29,7 @@
                 android:textAlignment="center"
                 android:id="@+id/report_toolbar_title"
                 android:text="@string/reports_title"
+
                 android:textColor="@color/white"
                 android:textSize="@dimen/action_bar_text" />
         </android.support.v7.widget.Toolbar>

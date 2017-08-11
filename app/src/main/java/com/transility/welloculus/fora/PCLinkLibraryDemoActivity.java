@@ -219,14 +219,14 @@ public class PCLinkLibraryDemoActivity extends FragmentActivity {
         findViews();
         setListener();
 
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			if (needRequestPermission == 0) {
 				needRequestPermission = !checkPermissions() ? 1 : 2;
 				if (needRequestPermission == 1) {
 					requestPermissions();
 				}
 			}
-		}*/
+		}
     }
     
     @TargetApi(Build.VERSION_CODES.M)

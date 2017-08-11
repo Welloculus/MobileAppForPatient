@@ -27,6 +27,8 @@ public interface DBConstants {
      * Columns for TABLE_HEALTH_DATA
      */
     String COLUMN_ID="COLUMN_ID";
+
+    String DATA_TYPE="DATA_TYPE";
     /**
      * The constant DEVICE_ID.
      */

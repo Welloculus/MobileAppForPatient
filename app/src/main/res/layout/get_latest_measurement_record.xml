@@ -3,31 +3,34 @@
     android:id="@+id/getLastMeasurementRecordLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:padding="15dp"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/measurementTypeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/measurement_type" />
 
     <TextView
         android:id="@+id/measurementType"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@color/green"
+        android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/measurementDateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/measurement_date" />
+        android:text="@string/measurement_date"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/measurementDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <!-- BG -->
 
@@ -42,13 +45,16 @@
             android:id="@+id/bgValueTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bg_value" />
+            android:text="@string/bg_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/bgValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
     <!-- BP -->
@@ -58,55 +64,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/sysValueTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sys_value" />
+            android:text="@string/sys_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/sysValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/diaValueTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dia_value" />
+            android:text="@string/dia_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/diaValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/pulseValueTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pul_value" />
+            android:text="@string/pul_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/pulseValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
         
         <TextView
             android:id="@+id/ihbValueTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ihb_value" />
+            android:text="@string/ihb_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
         
         <TextView
             android:id="@+id/ihbValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
         
     </LinearLayout>
 
@@ -123,13 +143,16 @@
             android:id="@+id/thermometerValueTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/thermometer_value" />
+            android:text="@string/thermometer_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/thermometerValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
     <!-- thermometer -->
@@ -145,85 +168,106 @@
             android:id="@+id/genderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gender_value" />
+            android:text="@string/gender_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/genderValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/ageTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/age_value" />
+            android:text="@string/age_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/ageValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/heightTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/height_value" />
+            android:text="@string/height_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/heightValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/weightTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weight_value" />
+            android:text="@string/weight_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/weightValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/bmiTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bmi_value" />
+            android:text="@string/bmi_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/bmiValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/bmrTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bmr_value" />
+            android:text="@string/bmr_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/bmrValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/bfTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bf_value" />
+            android:text="@string/bf_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/bfValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
     
     <!-- thermometer -->
@@ -239,25 +283,31 @@
             android:id="@+id/spO2Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/spO2_value" />
+            android:text="@string/spO2_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/spO2Value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
         
         <TextView
             android:id="@+id/spO2PulseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pul_value" />
+            android:text="@string/pul_value"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/spO2PulseValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
 </LinearLayout>

@@ -23,33 +23,30 @@ import java.util.Map;
 
 public class HeartRateReceiver extends BroadcastReceiver {
     Context ctx;
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        this.ctx=context;
+        this.ctx = context;
         DBHelper dbHelper = DBHelper.getInstance(context);
         if (intent != null) {
             String action = intent.getAction();
-            if (action == AppUtility.BROADCAST_HEART_RATE_ACTION && intent.hasExtra(AppUtility.EXTRAS_HEART_RATE)) {
-                int heartRate = intent.getIntExtra(AppUtility.EXTRAS_HEART_RATE, 0);
+            if (action == AppUtility.BROADCAST_NEW_DATA_ACTION && intent.hasExtra(AppUtility.EXTRAS_DATA_TYPE)) {
+                String dataType = intent.getStringExtra(AppUtility.EXTRAS_DATA_TYPE);
+                String data = intent.getStringExtra(AppUtility.EXTRAS_HEALTH_DATA);
                 long time = intent.getLongExtra(AppUtility.EXTRAS_HEART_RATE_LOG_TIME, Calendar.getInstance().getTimeInMillis());
                 String deviceId = intent.getStringExtra(AppUtility.EXTRAS_DEVICE_ID);
                 String deviceName = intent.getStringExtra(AppUtility.EXTRAS_DEVICE_NAME);
 
-                if (heartRate > 0) {
-                    AppUtility.sendNotification(context, String.format("%s - %s : %d", deviceName, context.getString(R.string.heart_rate_is), heartRate), "", AppUtility.isHearRateCritical(heartRate));
-                    // this.SendRequest(deviceId, deviceName, time, heartRate);
-                    dbHelper.insertHealthData(deviceId, deviceName, time, heartRate);
 
-                } else {
-                    Context applicationContext = context.getApplicationContext();
-                    Toast.makeText(applicationContext, applicationContext.getString(R.string.zephyr_invalid_data) + "" + heartRate, Toast.LENGTH_SHORT).show();
+                if (data != null) {
+                    dbHelper.insertHealthData(deviceId, deviceName, time, dataType, data);
                 }
             }
         }
     }
 
-    public void SendRequest(String deviceId, String deviceName, long time, int data){
-            String url = UrlConfig.getPaitentReport;
+    public void SendRequest(String deviceId, String deviceName, long time, int data) {
+        String url = UrlConfig.getPaitentReport;
         String postData = "{\n" +
                 "        \"providerId\":\"123\",\n" +
                 "    \"event\" : {\n" +
@@ -61,14 +58,14 @@ public class HeartRateReceiver extends BroadcastReceiver {
                 "        \"inUse\":\"true\",\n" +
                 "    }\n" +
                 "}";
-        Log.e(AppUtility.TAG, "data..... "+postData);
+        Log.e(AppUtility.TAG, "data..... " + postData);
 
-            Request request = new Request().setUri(url).setMethod(Request.Method.POST).setRequestType(Request.RequestType.GET_DEVICES).setPostData(postData);
-            Map<String, String> map = new HashMap<>();
-            map.put("Content-Type","application/json");
-            request.setParams(map);
-            RetrieveDataFromServer retriveDataFromServer = new RetrieveDataFromServer(ctx.getApplicationContext()).setRequest(request, new GetPaitentReportResponseHandler());
-            retriveDataFromServer.execute();
+        Request request = new Request().setUri(url).setMethod(Request.Method.POST).setRequestType(Request.RequestType.GET_DEVICES).setPostData(postData);
+        Map<String, String> map = new HashMap<>();
+        map.put("Content-Type", "application/json");
+        request.setParams(map);
+        RetrieveDataFromServer retriveDataFromServer = new RetrieveDataFromServer(ctx.getApplicationContext()).setRequest(request, new GetPaitentReportResponseHandler());
+        retriveDataFromServer.execute();
 
     }
 

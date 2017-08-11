@@ -82,6 +82,10 @@
 
         </activity>
         <activity
+            android:name="com.transility.welloculus.ui.AndroidDatabaseManager"
+            android:label="Database">
+        </activity>
+        <activity
             android:name="com.transility.welloculus.fora.PCLinkLibraryCommuTestActivity"
             android:label="@string/command_test_menu"
             android:screenOrientation="portrait" >
@@ -96,7 +100,7 @@
             android:name="com.transility.welloculus.app.receiver.HeartRateReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="SEND_HEART_RATE"></action>
+                <action android:name="NEW_DATA_RECEIVED"></action>
                 <action android:name="DEVICE_CONNECTED"></action>
             </intent-filter>
         </receiver>

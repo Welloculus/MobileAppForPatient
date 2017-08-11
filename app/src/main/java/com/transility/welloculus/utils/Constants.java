@@ -15,7 +15,18 @@ public interface Constants {
     int CRITICAL_MIN_HEART_RATE = 90;
     int CRITICAL_MIN_TEMPERATURE = 18;
 
+    final String KEY_ITEMS = "data";
+    final String PROVIDER_ID = "provider_id";
+    final String DATA = "data";
+    final String TIME = "time";
+    final String KEY_HEALTH_VITAL_KEY = "data";
+    final String KEY_ENTRY_CREATED = "time";
     String KEY_SYNC_INTERVAL = "KEY_SYNC_INTERVAL";
+    String DATA_TYPE = "data_type";
+    String DEVICE_ID = "device_id";
+    String DEVICE_NAME = "device_name";
+    String USER_DEVICE_ID = "user_device_id";
+    String LAST_SYNCED_ROW = "LAST_SYNCED_ROW";
     int HTTP_NOT_FOUND = 404;
     int HTTP_SUCCESS = 200;
     //Intent Keys
@@ -60,8 +71,9 @@ public interface Constants {
     String USERNAME = "username";
     String STARTDATE = "startdate";
     String ENDDATE = "enddate";
-    String HEARTRATE = "heart_rate";
-    String TEMPERTURE = "temperature";
+    String DATA_TYPE_HEART_RATE = "heart_rate";
+    String DATA_TYPE_TEMPERTURE = "temperature";
+    String DATA_TYPE_BLOOLD_PRESSURE = "blood_pressure";
 
        /* Cognito Constants*/
 
@@ -89,9 +101,11 @@ public interface Constants {
 
 
     /* Zephyr Constants*/
-    String BROADCAST_HEART_RATE_ACTION = "SEND_HEART_RATE";
+    String BROADCAST_NEW_DATA_ACTION = "NEW_DATA_RECEIVED";
     String BROADCAST_DEVICE_CONNECTED = "DEVICE_CONNECTED";
+    String EXTRAS_HEALTH_DATA = "EXTRAS_HEALTH_DATA";
     String EXTRAS_HEART_RATE = "EXTRAS_HEART_RATE";
+    String EXTRAS_DATA_TYPE = "EXTRAS_DATA_TYPE";
     String EXTRAS_HEART_RATE_LOG_TIME = "EXTRAS_HEART_RATE_LOG_TIME";
     String EXTRAS_DEVICE_ID = "EXTRAS_DEVICE_ID";
     String EXTRAS_DEVICE_NAME = "EXTRAS_DEVICE_NAME";

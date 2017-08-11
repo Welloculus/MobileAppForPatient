@@ -6,10 +6,12 @@ package com.transility.welloculus.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.database.SQLException;
 import android.util.Log;
 
 import com.transility.welloculus.beans.HealthDataBean;
-import com.transility.welloculus.beans.HeartRateInfoBean;
+import com.transility.welloculus.beans.HealthRecordBean;
 import com.transility.welloculus.utils.AppUtility;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -18,7 +20,6 @@ import net.sqlcipher.database.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * DBHelper class contains all the methods to perform database operations like
@@ -35,12 +36,10 @@ public class DBHelper extends SQLiteOpenHelper {
     private static Context mContext;
     private static final String QUERY_DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS ";
     private String key = DBConstants.PASS_KEY;
+    private static final int DATABASE_VERSION = 4;
 
-    /**
-     * @param context
-     */
     private DBHelper(Context context) {
-        super(context, DBConstants.DATABASE_NAME, null, 1);
+        super(context, DBConstants.DATABASE_NAME, null, DATABASE_VERSION);
         // initialize the sqlite cipher libraries
         SQLiteDatabase.loadLibs(context);
     }
@@ -69,6 +68,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + DBConstants.TABLE_HEALTH_DATA + " ("
                 + DBConstants.COLUMN_ID
                 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + DBConstants.DATA_TYPE
+                + " TEXT, "
                 + DBConstants.DEVICE_ID
                 + " TEXT, " + DBConstants.DATA + " TEXT UNIQUE, " + DBConstants.TIME + " INTEGER, "
                 + DBConstants.DEVICE_NAME + " TEXT" + ")");
@@ -78,10 +79,20 @@ public class DBHelper extends SQLiteOpenHelper {
      * Do not call this method manually
      */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        SQLiteDatabase.loadLibs(mContext);
         db.execSQL(QUERY_DROP_TABLE_IF_EXISTS
                 + DBConstants.TABLE_HEALTH_DATA);
+        db.execSQL("CREATE TABLE " + DBConstants.TABLE_HEALTH_DATA + " ("
+                + DBConstants.COLUMN_ID
+                + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + DBConstants.DATA_TYPE
+                + " TEXT, "
+                + DBConstants.DEVICE_ID
+                + " TEXT, " + DBConstants.DATA + " TEXT UNIQUE, " + DBConstants.TIME + " INTEGER, "
+                + DBConstants.DEVICE_NAME + " TEXT" + ")");
 
     }
+
     /**
      * delete All Data
      */
@@ -99,7 +110,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param data       the data
      * @return long
      */
-    public long insertHealthData(String deviceId, String deviceName, long time, int data) {
+    public long insertHealthData(String deviceId, String deviceName, long time, String dataType, String data) {
 
         SQLiteDatabase db = this.getWritableDatabase(key);
         ContentValues contentValues = new ContentValues();
@@ -109,112 +120,97 @@ public class DBHelper extends SQLiteOpenHelper {
                 deviceName);
         contentValues.put(DBConstants.DATA,
                 data);
+        contentValues.put(DBConstants.DATA_TYPE,
+                dataType);
         contentValues.put(DBConstants.TIME, time);
-        Log.v(AppUtility.TAG, "value inserted  deviceID : " + deviceId + " DATA : " + data + " TIME : " + time);
+        Log.v(AppUtility.TAG, "value inserted  deviceID : " + deviceId + " DATA_TYPE : " + dataType + " DATA : " + data + " TIME : " + time);
         long rowID = db.insertWithOnConflict(DBConstants.TABLE_HEALTH_DATA, null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
         Log.v(AppUtility.TAG, "DATA : " + data + " rowID : " + rowID);
         return rowID;
     }
 
-    /**
-     * Get health information from DB.
-     *
-     * @return HealthInfo from DB
-     */
-    public Map<String, List<HeartRateInfoBean>> getHealthInfo() {
-        HashMap<String, List<HeartRateInfoBean>> healthData = new HashMap<>();
-        List<HeartRateInfoBean> heartRateInfoList = new ArrayList<>();
-
+    public List<HealthRecordBean> getHealthRecordsAfterRow(int lastSyncedRow) {
+        List<HealthRecordBean> healthRecordsList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase(key);
-        Cursor deviceCursor = db.rawQuery("SELECT DISTINCT " + DBConstants.DEVICE_ID + " FROM " + DBConstants.TABLE_HEALTH_DATA, null);
-        if (deviceCursor.moveToFirst()) {
+        Cursor healthInfoCursor = db.rawQuery("SELECT * FROM HEALTH_INFO WHERE COLUMN_ID > ?", new String[]{Integer.toString(lastSyncedRow)});
+        if (healthInfoCursor.moveToFirst()) {
             do {
-                String deviceId = deviceCursor.getString(deviceCursor
-                        .getColumnIndex(DBConstants.DEVICE_ID));
-                Log.v(AppUtility.TAG, "deviceId : " + deviceId);
-                heartRateInfoList.clear();
-                healthData.put(deviceId, heartRateInfoList);
-                Cursor healthInfoCursor = db.query(DBConstants.TABLE_HEALTH_DATA, null, DBConstants.DEVICE_ID + " = ?", new String[]{deviceId}, null, null, null, null);
-                if (healthInfoCursor.moveToFirst()) {
-                    do {
-                        HeartRateInfoBean heartRateInfo = new HeartRateInfoBean();
-                        heartRateInfo.setDeviceName(healthInfoCursor.getString(healthInfoCursor
-                                .getColumnIndex(DBConstants.DEVICE_NAME)));
-                        heartRateInfo.setDeviceID(healthInfoCursor.getString(healthInfoCursor
-                                .getColumnIndex(DBConstants.DEVICE_ID)));
-                        heartRateInfo.setHeartRate(healthInfoCursor.getInt(healthInfoCursor
-                                .getColumnIndex(DBConstants.DATA)));
-                        heartRateInfo.setTime(healthInfoCursor.getLong(healthInfoCursor
-                                .getColumnIndex(DBConstants.TIME)));
-                        heartRateInfoList.add(heartRateInfo);
-                        Log.v(AppUtility.TAG, "data : " + heartRateInfo.getHeartRate() + " TIME : " + heartRateInfo.getTime());
-                    }
-                    while (healthInfoCursor.moveToNext());
-                }
-                healthData.put(deviceId, heartRateInfoList);
-                healthInfoCursor.close();
-            } while (deviceCursor.moveToNext());
+                HealthRecordBean healthRecord = new HealthRecordBean();
+                healthRecord.setRecordId(healthInfoCursor.getInt(healthInfoCursor.getColumnIndex(DBConstants.COLUMN_ID)));
+                healthRecord.setDeviceName(healthInfoCursor.getString(healthInfoCursor.getColumnIndex(DBConstants.DEVICE_NAME)));
+                healthRecord.setDeviceID(healthInfoCursor.getString(healthInfoCursor.getColumnIndex(DBConstants.DEVICE_ID)));
+                healthRecord.setDataType(healthInfoCursor.getString(healthInfoCursor.getColumnIndex(DBConstants.DATA_TYPE)));
+                healthRecord.setData(healthInfoCursor.getString(healthInfoCursor.getColumnIndex(DBConstants.DATA)));
+                healthRecord.setTime(healthInfoCursor.getLong(healthInfoCursor.getColumnIndex(DBConstants.TIME)));
+                healthRecordsList.add(healthRecord);
+            }
+            while (healthInfoCursor.moveToNext());
         }
-        deviceCursor.close();
-        return healthData;
+        healthInfoCursor.close();
+        return healthRecordsList;
     }
 
-    public ArrayList<HealthDataBean> getHealthInfoFromDate(String deviceID,  String fromTodate ,String todate) {
-        HashMap<String, List<HeartRateInfoBean>> healthData = new HashMap<>();
-        List<HeartRateInfoBean> heartRateInfoList = new ArrayList<>();
-
+    public List<HealthRecordBean> getHealthRecordsInDateRange(String fromDate, String toDate) {
+        List<HealthRecordBean> healthRecordsList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase(key);
-        Cursor deviceCursor = db.rawQuery("SELECT *  FROM " + DBConstants.TABLE_HEALTH_DATA + " WHERE " + DBConstants.TIME + ">= ? AND " + DBConstants.TIME  + "<= ? " , new String[] {fromTodate,todate});
-        ArrayList<HealthDataBean> health_data = new ArrayList<HealthDataBean>();
-        if (deviceCursor.moveToFirst()) {
+        Cursor healthInfoCursor = db.rawQuery("SELECT * FROM HEALTH_INFO WHERE TIME >=? AND TIME <?", new String[]{fromDate, toDate});
+        if (healthInfoCursor.moveToFirst()) {
             do {
-                String deviceId = deviceCursor.getString(deviceCursor
-                        .getColumnIndex(DBConstants.DEVICE_ID));
-                String Time = deviceCursor.getString(deviceCursor
-                        .getColumnIndex(DBConstants.TIME));
-                String data = deviceCursor.getString(deviceCursor
-                        .getColumnIndex(DBConstants.DATA));
-                Log.v(AppUtility.TAG, "data :------> " + deviceCursor.getCount());
-                Log.v(AppUtility.TAG, "deviceId :------> " + deviceId);
-                Log.v(AppUtility.TAG, "time:------> " + Time);
-                Log.v(AppUtility.TAG, "data :------> " + data);
-
-                    HealthDataBean datahealth = new HealthDataBean();
-                datahealth.setEntry_created(Time);
-                datahealth.setKey("heart_rate");
-                datahealth.setValue(data);
-                health_data.add(datahealth);
-
-
-
-
-                /*heartRateInfoList.clear();
-                healthData.put(deviceId, heartRateInfoList);
-                Cursor healthInfoCursor = db.query(DBConstants.TABLE_HEALTH_DATA, null, DBConstants.DEVICE_ID + " = ?", new String[]{deviceId}, null, null, null, null);
-                if (healthInfoCursor.moveToFirst()) {
-                    do {
-                        HeartRateInfoBean heartRateInfo = new HeartRateInfoBean();
-                        heartRateInfo.setDeviceName(healthInfoCursor.getString(healthInfoCursor
-                                .getColumnIndex(DBConstants.DEVICE_NAME)));
-                        heartRateInfo.setDeviceID(healthInfoCursor.getString(healthInfoCursor
-                                .getColumnIndex(DBConstants.DEVICE_ID)));
-                        heartRateInfo.setHeartRate(healthInfoCursor.getInt(healthInfoCursor
-                                .getColumnIndex(DBConstants.DATA)));
-                        heartRateInfo.setTime(healthInfoCursor.getLong(healthInfoCursor
-                                .getColumnIndex(DBConstants.TIME)));
-                        heartRateInfoList.add(heartRateInfo);
-                        Log.v(AppUtility.TAG, "data :---------> " + heartRateInfo.getHeartRate() + " TIME : ------->" + heartRateInfo.getTime());
-                    }
-                    while (healthInfoCursor.moveToNext());
-                }
-                healthData.put(deviceId, heartRateInfoList);
-                healthInfoCursor.close();*/
-
-            } while (deviceCursor.moveToNext());
+                HealthRecordBean healthRecord = new HealthRecordBean();
+                healthRecord.setDeviceName(healthInfoCursor.getString(healthInfoCursor.getColumnIndex(DBConstants.DEVICE_NAME)));
+                healthRecord.setDeviceID(healthInfoCursor.getString(healthInfoCursor.getColumnIndex(DBConstants.DEVICE_ID)));
+                healthRecord.setDataType(healthInfoCursor.getString(healthInfoCursor.getColumnIndex(DBConstants.DATA_TYPE)));
+                healthRecord.setData(healthInfoCursor.getString(healthInfoCursor.getColumnIndex(DBConstants.DATA)));
+                healthRecord.setTime(healthInfoCursor.getLong(healthInfoCursor.getColumnIndex(DBConstants.TIME)));
+                healthRecordsList.add(healthRecord);
+            }
+            while (healthInfoCursor.moveToNext());
         }
-        deviceCursor.close();
-        return health_data;
+        healthInfoCursor.close();
+        return healthRecordsList;
     }
 
+    public ArrayList<Cursor> getData(String Query){
+        //get writable database
+        SQLiteDatabase sqlDB = this.getWritableDatabase(key);
+        String[] columns = new String[] { "message" };
+        //an array list of cursor to save two cursors one has results from the query
+        //other cursor stores error message if any errors are triggered
+        ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
+        MatrixCursor Cursor2= new MatrixCursor(columns);
+        alc.add(null);
+        alc.add(null);
 
+        try{
+            String maxQuery = Query ;
+            //execute the query results will be save in Cursor c
+            Cursor c = sqlDB.rawQuery(maxQuery, null);
+
+            //add value to cursor2
+            Cursor2.addRow(new Object[] { "Success" });
+
+            alc.set(1,Cursor2);
+            if (null != c && c.getCount() > 0) {
+
+                alc.set(0,c);
+                c.moveToFirst();
+
+                return alc ;
+            }
+            return alc;
+        } catch(SQLException sqlEx){
+            Log.d("printing exception", sqlEx.getMessage());
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        } catch(Exception ex){
+            Log.d("printing exception", ex.getMessage());
+
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        }
+    }
 }

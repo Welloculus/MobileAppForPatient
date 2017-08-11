@@ -1,79 +1,29 @@
 package com.transility.welloculus.beans;
 
+import org.json.JSONObject;
+
 /**
  * The type Health data bean.
  */
 public class HealthDataBean {
 
-    private String entry_created;
+    private long entryCreated;
 
-    private String value;
+    private JSONObject dataMap = new JSONObject();
 
-    private String key;
-
-    /**
-     * Gets entry created.
-     *
-     * @return the entry created
-     */
-    public String getEntry_created ()
-    {
-        return entry_created;
+    public JSONObject getDataMap() {
+        return dataMap;
     }
 
-    /**
-     * Sets entry created.
-     *
-     * @param entry_created the entry created
-     */
-    public void setEntry_created (String entry_created)
-    {
-        this.entry_created = entry_created;
+    public void setDataMap(JSONObject dataMap) {
+        this.dataMap = dataMap;
     }
 
-    /**
-     * Gets value.
-     *
-     * @return the value
-     */
-    public String getValue ()
-    {
-        return value;
+    public long getEntryCreated() {
+        return entryCreated;
     }
 
-    /**
-     * Sets value.
-     *
-     * @param value the value
-     */
-    public void setValue (String value)
-    {
-        this.value = value;
-    }
-
-    /**
-     * Gets key.
-     *
-     * @return the key
-     */
-    public String getKey ()
-    {
-        return key;
-    }
-
-    /**
-     * Sets key.
-     *
-     * @param key the key
-     */
-    public void setKey (String key)
-    {
-        this.key = key;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [entry_created = "+entry_created+", value = "+value+", key = "+key+"]";
+    public void setEntryCreated(long entryCreated) {
+        this.entryCreated = entryCreated;
     }
 }
