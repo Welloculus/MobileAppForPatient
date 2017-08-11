@@ -1,5 +1,6 @@
 package com.transility.welloculus.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -68,6 +69,8 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
         TextView navHeaderSubTitle = (TextView) navigationHeader.findViewById(R.id.textViewNavUserSub);
         navHeaderSubTitle.setText(mUsername);
 
+        HealthCareApp healthCareApp = (HealthCareApp) ((Activity) mContext).getApplication();
+        healthCareApp.startPostDataService();
 
     }
 
@@ -241,6 +244,7 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.btn_fora_devices:
                 intent = new Intent(mContext, PCLinkLibraryDemoActivity.class);
+                //intent = new Intent(mContext, AndroidDatabaseManager.class);
                 startActivity(intent);
                 break;
             default:
@@ -296,6 +300,9 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
             BluetoothHandler.getInstance().disconnect(getApplicationContext());
         }
         ((HealthCareApp) getApplication()).stopPostDataService();
+
+        HealthCareApp healthCareApp = (HealthCareApp) ((Activity) mContext).getApplication();
+        healthCareApp.stopPostDataService();
     }
 }
 

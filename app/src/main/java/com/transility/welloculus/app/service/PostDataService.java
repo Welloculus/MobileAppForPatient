@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.transility.welloculus.R;
-import com.transility.welloculus.beans.HeartRateInfoBean;
+import com.transility.welloculus.beans.HealthRecordBean;
 import com.transility.welloculus.beans.ResponseBean;
 import com.transility.welloculus.db.DBHelper;
 import com.transility.welloculus.httpclient.Request;
@@ -18,126 +18,90 @@ import com.transility.welloculus.httpresponse.HttpResponseHandler;
 import com.transility.welloculus.httpresponse.PostHealthDataResponse;
 import com.transility.welloculus.utils.AppUtility;
 import com.transility.welloculus.utils.Constants;
+import com.transility.welloculus.utils.SharedPreferenceHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-/**
- * Created by arpit.garg on 4/5/2017.
- */
+
 public class PostDataService extends BroadcastReceiver {
-    private final String KEY_ITEMS = "data";
-    private final String KEY_PROVIDERID = "provider_id";
-    private final String KEY_HEART_RATE = "heart_rate";
-    private final String KEY_HEALTH_VITAL_KEY = "data";
-    private final String KEY_ENTRY_CREATED = "time";
     private Context context;
-    private int minHeartRate = 0;
-    private int maxHeartRate = 0;
     private static final String keyString = "wellie";
+    public static final String tempProviderId = "123";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-
-        HashMap<String, List<HeartRateInfoBean>> healthInfo = (HashMap<String, List<HeartRateInfoBean>>) DBHelper.getInstance(context.getApplicationContext()).getHealthInfo();
+        int lastSyncedRow = SharedPreferenceHelper.getSharedPreferenceInt(context, Constants.LAST_SYNCED_ROW, 0);
+        List<HealthRecordBean> healthInfo = DBHelper.getInstance(context.getApplicationContext()).getHealthRecordsAfterRow(lastSyncedRow);
         if (healthInfo != null && healthInfo.size() > 0) {
             sendDataToServer(context.getApplicationContext(), healthInfo);
         }
     }
 
-    private void sendDataToServer(Context context, HashMap<String, List<HeartRateInfoBean>> healthInfo) {
-        Iterator it = healthInfo.entrySet().iterator();
-        JSONObject postJsonObject = new JSONObject();
+    private void sendDataToServer(Context context, List<HealthRecordBean> healthInfo) {
         try {
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                List<HeartRateInfoBean> healthInfoData = (List<HeartRateInfoBean>) pair.getValue();
-                String deviceId = (String) pair.getKey();
-                minHeartRate = AppUtility.CRITICAL_MAX_HEART_RATE;
-                maxHeartRate = 0;
-                if (healthInfoData != null) {
-
-                    postJsonObject.put(KEY_PROVIDERID, "123");
-                    postJsonObject.put("user_id", "1");
-                    postJsonObject.put("device_id", "HXM-Zypher");
-                    postJsonObject.put("user_device_id", deviceId);
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date = new Date();
-                    String output = dateFormat.format(date);
-                    System.out.println(output);
-                    postJsonObject.put("date", output);
-
-//                    postJsonObject.put("data_type", "heart_rate");
-                    JSONArray createDevicePostDataFormat = createDevicePostData(deviceId, healthInfoData);
-                    SecretKey secKey = getSecretEncryptionKey();
-                    byte[] cipherText = encryptText(createDevicePostDataFormat, secKey);
-                    String encodedTextString =  new String(cipherText);
-                    postJsonObject.put(KEY_HEART_RATE, encodedTextString);
-                }
-                it.remove();
+            Map<String, JSONObject> devicePostData = createDevicePostData(healthInfo);
+            Set<String> keyset = devicePostData.keySet();
+            for (String key : keyset) {
+                JSONObject dataTypeJsonObject = devicePostData.get(key);
+                dataTypeJsonObject = encryptDataObject(dataTypeJsonObject);
+                Request request = new Request().setUri(UrlConfig.postHealthData).setMethod(Request.Method.POST).setRequestType(Request.RequestType.POST_HEALTH_DATA).setPostData(dataTypeJsonObject.toString());
+                RetrieveDataFromServer retriveDataFromServer = new RetrieveDataFromServer(context.getApplicationContext()).setRequest(request, new SendDataResponseHandler());
+                retriveDataFromServer.execute();
             }
-
-        } catch (Exception e) {
-            Log.e(AppUtility.TAG, Log.getStackTraceString(e));
+            int lastSyncedRow = healthInfo.get(healthInfo.size()-1).getRecordId();
+            SharedPreferenceHelper.setSharedPreferenceInt(context, Constants.LAST_SYNCED_ROW, lastSyncedRow);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        String postData = postJsonObject.toString();
-        Log.v(AppUtility.TAG, " json : " + postData);
-        Request request = new Request().setUri(UrlConfig.postHealthData).setMethod(Request.Method.POST).setRequestType(Request.RequestType.POST_HEALTH_DATA).setPostData(postData);
-        RetrieveDataFromServer retriveDataFromServer = new RetrieveDataFromServer(context.getApplicationContext()).setRequest(request, new SendDataResponseHandler());
-        retriveDataFromServer.execute();
     }
 
-    private JSONArray createDevicePostData(String deviceId, List<HeartRateInfoBean> healthInfoData) throws JSONException {
-        JSONObject deviceObject = new JSONObject();
-        JSONArray dataArray = new JSONArray();
-        for (int i = 0; i < healthInfoData.size(); i++) {
-            JSONObject healthJson = new JSONObject();
-            HeartRateInfoBean heartRateInfo = healthInfoData.get(i);
+    private JSONObject encryptDataObject(JSONObject dataTypeJsonObject) throws JSONException {
+        JSONArray dataArray = dataTypeJsonObject.getJSONArray(Constants.DATA);
+        //TODO Saurav, add code to  encrypt dataArray here
+        return dataTypeJsonObject;
+    }
 
-            if (heartRateInfo.getHeartRate() > maxHeartRate) {
-                maxHeartRate = heartRateInfo.getHeartRate();
-            }
 
-            if (heartRateInfo.getHeartRate() < minHeartRate) {
-                minHeartRate = heartRateInfo.getHeartRate();
+    private Map<String, JSONObject> createDevicePostData(List<HealthRecordBean> healthRecordsList) throws JSONException {
+        Map<String, JSONObject> healthDataJson = new HashMap<>();
+        for (int i = 0; i < healthRecordsList.size(); i++) {
+            HealthRecordBean healthRecord = healthRecordsList.get(i);
+            String dataType = healthRecord.getDataType();
+            if (!healthDataJson.containsKey(dataType)) {
+                JSONObject dataTypeJsonObject =  new JSONObject();
+                dataTypeJsonObject.put(Constants.DATA_TYPE,dataType);
+                dataTypeJsonObject.put(Constants.DEVICE_ID, healthRecord.getDeviceID());
+                dataTypeJsonObject.put(Constants.DEVICE_NAME, healthRecord.getDeviceName());
+                dataTypeJsonObject.put(Constants.USER_DEVICE_ID, healthRecord.getUserDeviceID());
+                dataTypeJsonObject.put(Constants.PROVIDER_ID, tempProviderId);
+                dataTypeJsonObject.put(Constants.DATA, new JSONArray());
+                healthDataJson.put(dataType, dataTypeJsonObject);
             }
-            JSONObject itemJson = new JSONObject();
-//            healthJson.put(KEY_HEART_RATE, heartRateInfo.getHeartRate());
-//            itemJson.put(KEY_HEALTH_VITAL_KEY, healthJson);
-            itemJson.put(KEY_HEART_RATE, heartRateInfo.getHeartRate());
-            itemJson.put(KEY_ENTRY_CREATED, heartRateInfo.getTime());
+            JSONArray dataArray = healthDataJson.get(dataType).getJSONArray(Constants.DATA);
+            JSONObject itemJson = new JSONObject(healthRecord.getData());
+            itemJson.put(Constants.TIME, healthRecord.getTime());
             dataArray.put(itemJson);
         }
-//        deviceObject.put(KEY_HEART_RATE, dataArray);
-        return dataArray;
+        return healthDataJson;
     }
 
 
-
-    /**
-     * gets the AES encryption key. In your actual programs, this should be safely
-     * stored.
-     * @return
-     * @throws Exception
-     */
-    public static SecretKey getSecretEncryptionKey() throws NoSuchAlgorithmException, UnsupportedEncodingException{
+    public static SecretKey getSecretEncryptionKey() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         byte[] key = (keyString).getBytes("UTF-8");
         MessageDigest sha = MessageDigest.getInstance("SHA-1");
         key = sha.digest(key);
@@ -146,14 +110,8 @@ public class PostDataService extends BroadcastReceiver {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
         return secretKeySpec;
     }
-    /**
-     * Encrypts plainText in AES using the secret key
-     * @param plainText
-     * @param secKey
-     * @return
-     * @throws Exception
-     */
-    public static byte[] encryptText(JSONArray plainText,SecretKey secKey) throws Exception{
+
+    public static byte[] encryptText(JSONArray plainText, SecretKey secKey) throws Exception {
         // AES defaults to AES/ECB/PKCS5Padding in Java 7
         Cipher aesCipher = Cipher.getInstance("AES");
         aesCipher.init(Cipher.ENCRYPT_MODE, secKey);
@@ -161,13 +119,7 @@ public class PostDataService extends BroadcastReceiver {
         return byteCipherText;
     }
 
-    /**
-     * Decrypts encrypted byte array using the key used for encryption.
-     * @param byteCipherText
-     * @param secKey
-     * @return
-     * @throws Exception
-     */
+
     public static String decryptText(byte[] byteCipherText, SecretKey secKey) throws Exception {
         // AES defaults to AES/ECB/PKCS5Padding in Java 7
         Cipher aesCipher = Cipher.getInstance("AES");
@@ -178,6 +130,8 @@ public class PostDataService extends BroadcastReceiver {
 
 
     private class SendDataResponseHandler implements HttpResponseHandler {
+        private int minHeartRate = 0;
+        private int maxHeartRate = 0;
         @Override
         public void handleResponse(BaseResponse baseResponse) {
             PostHealthDataResponse postHealthDataResponse = (PostHealthDataResponse) baseResponse;
@@ -191,7 +145,7 @@ public class PostDataService extends BroadcastReceiver {
                     boolean critical = AppUtility.isHearRateCritical(maxHeartRate) || AppUtility.isHearRateCritical(minHeartRate);
                     AppUtility.sendNotification(context.getApplicationContext(), context.getString(R.string.health_data_is_posted_to_server), message, critical);
                 } else {
-                    Toast.makeText(context.getApplicationContext(), ""+responseBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "" + responseBean.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -201,7 +155,5 @@ public class PostDataService extends BroadcastReceiver {
             Log.e(AppUtility.TAG, "handleError : " + baseResponse);
             Log.e(AppUtility.TAG, "handleError : " + baseResponse.getmStatus());
         }
-
-
     }
 }

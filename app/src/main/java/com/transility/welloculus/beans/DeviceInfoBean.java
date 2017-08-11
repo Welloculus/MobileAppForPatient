@@ -38,11 +38,11 @@ public class DeviceInfoBean {
 
     private Boolean in_use;
 
-    public void setHealth_data(ArrayList<HealthDataBean> health_data) {
+    public void setHealth_data(List<HealthDataBean> health_data) {
         this.health_data = health_data;
     }
 
-    private ArrayList<HealthDataBean> health_data;
+    private List<HealthDataBean> health_data;
 
     /**
      * Gets device state.

@@ -6,15 +6,14 @@ package com.transility.welloculus.fora;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -22,7 +21,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -34,10 +33,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.taidoc.pclinklibrary.android.bluetooth.util.BluetoothUtil;
@@ -50,7 +47,6 @@ import com.taidoc.pclinklibrary.constant.PCLinkLibraryEnum.GenderType;
 import com.taidoc.pclinklibrary.constant.PCLinkLibraryEnum.User;
 import com.transility.welloculus.fora.constant.PCLinkLibraryDemoConstant;
 import com.transility.welloculus.fora.fragment.SetABPMConfigDialog;
-import com.transility.welloculus.fora.fragment.SetABPMConfigDialog.ABPMConfigListener;
 import com.transility.welloculus.fora.util.GuiUtils;
 import com.taidoc.pclinklibrary.exceptions.CommunicationTimeoutException;
 import com.taidoc.pclinklibrary.exceptions.ExceedRetryTimesException;
@@ -59,8 +55,6 @@ import com.taidoc.pclinklibrary.exceptions.NotSupportMeterException;
 import com.taidoc.pclinklibrary.interfaces.CharacteristicChangedInterface;
 import com.taidoc.pclinklibrary.interfaces.MeasurementListener;
 import com.taidoc.pclinklibrary.meter.AbstractMeter;
-import com.taidoc.pclinklibrary.meter.TD4283;
-import com.taidoc.pclinklibrary.meter.record.ABPMConfig;
 import com.taidoc.pclinklibrary.meter.record.AbstractRecord;
 import com.taidoc.pclinklibrary.meter.record.BloodGlucoseRecord;
 import com.taidoc.pclinklibrary.meter.record.BloodPressureRecord;
@@ -69,6 +63,11 @@ import com.taidoc.pclinklibrary.meter.record.TemperatureRecord;
 import com.taidoc.pclinklibrary.meter.record.WeightScaleRecord;
 import com.taidoc.pclinklibrary.meter.util.MeterManager;
 import com.transility.welloculus.R;
+import com.transility.welloculus.utils.AppUtility;
+import com.transility.welloculus.utils.Constants;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * PCLinkLibrary command test activity
@@ -180,7 +179,7 @@ public class PCLinkLibraryCommuTestActivity extends Activity {
     private void findViews(){
         btnMeasure = (Button) findViewById(R.id.btnMeasure);
         counterView = (TextView) findViewById(R.id.counterView);
-        counterView.setText("--");
+        counterView.setText("0");
     }
     private void setListener(){
         btnMeasure.setOnClickListener(mMeasureBPListener);
@@ -690,6 +689,22 @@ public class PCLinkLibraryCommuTestActivity extends Activity {
         }
     };
 
+
+    private Button.OnClickListener mFetchRecordsListener = new Button.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONArray records = getAllRecords();
+
+                }
+            }).start();
+        }
+
+    };
+
     private void startMeasurement(){
         mConnection.setCharacteristicChangedHandler(new CharacteristicChangedInterface() {
             @Override
@@ -740,6 +755,7 @@ public class PCLinkLibraryCommuTestActivity extends Activity {
             @Override
             public void onFinish(int sys, int dia, int pulse) {
                 dimissProcessDialog();
+
                 LayoutInflater inflater = (LayoutInflater) PCLinkLibraryCommuTestActivity.this
                         .getSystemService(LAYOUT_INFLATER_SERVICE);
                 SimpleDateFormat formatterDate = new SimpleDateFormat("yyyy/MM/dd hh:mm aa");
@@ -783,6 +799,55 @@ public class PCLinkLibraryCommuTestActivity extends Activity {
                 showAlertDialog(layout);
             }
         });
+    }
+
+    /**
+     * send the broad cast for the heart rate.
+     */
+    private void createBroadcast(int sys, int dia, int pulse, Date date) {
+        try {
+            Intent intent = new Intent();
+
+            JSONObject recordObject = new JSONObject();
+            recordObject.put("systolic",sys);
+            recordObject.put("diastolic",dia);
+            recordObject.put("pulse",pulse);
+            recordObject.put("time",date.getTime()+"");
+            intent.putExtra(AppUtility.EXTRAS_HEALTH_DATA, recordObject.toString());
+            intent.putExtra(AppUtility.EXTRAS_DATA_TYPE, Constants.DATA_TYPE_BLOOLD_PRESSURE);
+            intent.putExtra(AppUtility.EXTRAS_DEVICE_ID, mTaiDocMeter.getSerialNumberRecord().getSerialNumber());
+            intent.putExtra(AppUtility.EXTRAS_DEVICE_NAME, mTaiDocMeter.getDeviceModel().getProjectCode());
+            intent.putExtra(AppUtility.EXTRAS_HEART_RATE_LOG_TIME, Calendar.getInstance().getTimeInMillis());
+            intent.setAction(AppUtility.BROADCAST_NEW_DATA_ACTION);
+            this.sendBroadcast(intent);
+        }catch (Exception e){
+            Log.e("welloculus","error occured", e);
+        }
+    }
+    private JSONArray getAllRecords(){
+        JSONArray recordsArray = new JSONArray();
+        String serialNumber = mTaiDocMeter.getSerialNumberRecord()
+                .getSerialNumber();
+        int storageCount = mTaiDocMeter.getStorageNumberAndNewestIndex(
+                User.CurrentUser).getStorageNumber();
+        for (int i=0;i<storageCount;i++) {
+            try {
+                AbstractRecord record = mTaiDocMeter.getStorageDataRecord(i,
+                        User.CurrentUser);
+                if(record instanceof BloodPressureRecord){
+                    BloodPressureRecord bpRecord = (BloodPressureRecord)record;
+                    JSONObject recordObject = new JSONObject();
+                    recordObject.put("systolic",bpRecord.getSystolicValue());
+                    recordObject.put("diastolic",bpRecord.getDiastolicValue());
+                    recordObject.put("pulse",bpRecord.getPulseValue());
+                    recordObject.put("time",bpRecord.getMeasureTime().getTime());
+                    recordsArray.put(recordObject);
+                }
+            }catch (Exception e){
+                Log.e("Welloculus", e.getMessage());
+            }
+        }
+        return recordsArray;
     }
   /*  @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {

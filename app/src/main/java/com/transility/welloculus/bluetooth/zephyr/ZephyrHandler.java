@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.transility.welloculus.R;
 import com.transility.welloculus.app.HealthCareApp;
@@ -15,6 +16,10 @@ import com.transility.welloculus.app.receiver.IHealthCareReceiver;
 import com.transility.welloculus.beans.DeviceInfoBean;
 import com.transility.welloculus.bluetooth.DeviceConnectException;
 import com.transility.welloculus.utils.AppUtility;
+import com.transility.welloculus.utils.Constants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -135,7 +140,13 @@ public class ZephyrHandler implements ZephyrPacketListener, ConnectedListener<BT
                 if (mReceiver != null) {
                     mReceiver.onHeartRateReceived(heartRate, mDeviceInfo);
                 }
-                createBroadcast(heartRate);
+                if (heartRate > 0) {
+                    AppUtility.sendNotification(mContext, String.format("%s - %s : %d", mDeviceInfo.getDevice_name(), mContext.getString(R.string.heart_rate_is), heartRate), "", AppUtility.isHearRateCritical(heartRate));
+                    createBroadcast(heartRate);
+                } else {
+                    Context applicationContext = mContext.getApplicationContext();
+                    Toast.makeText(applicationContext, applicationContext.getString(R.string.zephyr_invalid_data) + "" + heartRate, Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
@@ -143,13 +154,21 @@ public class ZephyrHandler implements ZephyrPacketListener, ConnectedListener<BT
          * send the broad cast for the heart rate.
          */
         private void createBroadcast(int heartRate) {
-            Intent intent = new Intent();
-            intent.putExtra(AppUtility.EXTRAS_HEART_RATE, heartRate);
-            intent.putExtra(AppUtility.EXTRAS_DEVICE_ID, mDeviceInfo.getDevice_udi());
-            intent.putExtra(AppUtility.EXTRAS_DEVICE_NAME, mDeviceInfo.getDevice_name());
-            intent.putExtra(AppUtility.EXTRAS_HEART_RATE_LOG_TIME, Calendar.getInstance().getTimeInMillis());
-            intent.setAction(AppUtility.BROADCAST_HEART_RATE_ACTION);
-            mContext.sendBroadcast(intent);
+            try {
+                Intent intent = new Intent();
+                JSONObject heartRateJson = new JSONObject();
+                heartRateJson.put(Constants.DATA_TYPE_HEART_RATE, heartRate);
+                heartRateJson.put("time",Calendar.getInstance().getTimeInMillis()+"");
+                intent.putExtra(AppUtility.EXTRAS_HEALTH_DATA, heartRateJson.toString());
+                intent.putExtra(AppUtility.EXTRAS_DATA_TYPE, Constants.DATA_TYPE_HEART_RATE);
+                intent.putExtra(AppUtility.EXTRAS_DEVICE_ID, mDeviceInfo.getDevice_udi());
+                intent.putExtra(AppUtility.EXTRAS_DEVICE_NAME, mDeviceInfo.getDevice_name());
+                intent.putExtra(AppUtility.EXTRAS_HEART_RATE_LOG_TIME, Calendar.getInstance().getTimeInMillis());
+                intent.setAction(AppUtility.BROADCAST_NEW_DATA_ACTION);
+                mContext.sendBroadcast(intent);
+            }catch (JSONException je){
+                Log.e("welloculus","error occured", je);
+            }
         }
 
     };
