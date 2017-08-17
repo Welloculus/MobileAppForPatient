@@ -66,12 +66,13 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
      */
     TextView mTvToDate;
     TextView deviceMessage;
-    TextView deviceNameText;
+    //TextView deviceNameText;
     LinearLayout reportContainer;
     /**
      * The M spin select device.
      */
     Spinner mDeviceSpin;
+    Spinner mDataSpin;
     /**
      * The Requested date view id.
      */
@@ -118,10 +119,9 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
      * The Attributes array.
      */
     String[] attributesArray;
-    /**
-     * The Check spinner.
-     */
-    int checkSpinner = 0;
+    String[] dataKeysArray;
+    String selectedDeviceName;
+
     /**
      * The M btn get report.
      */
@@ -182,13 +182,15 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
         reportContainer = (LinearLayout) findViewById(R.id.report_container);
         deviceMessage = (TextView) findViewById(R.id.device_message);
         mTvToDate = (TextView) findViewById(R.id.btn_to);
-        deviceNameText = (TextView) findViewById(R.id.deviceName);
+        //deviceNameText = (TextView) findViewById(R.id.deviceName);
         mDeviceSpin = (Spinner) findViewById(R.id.device_spin);
+        mDataSpin = (Spinner) findViewById(R.id.data_spin);
         mllGetReport = (LinearLayout) findViewById(R.id.btn_get_reports_ll);
         mTvToDate.setOnClickListener(this);
         mllGetReport.setOnClickListener(this);
         mBtnGetReport.setOnClickListener(this);
         mDeviceSpin.setOnItemSelectedListener(this);
+        mDataSpin.setOnItemSelectedListener(this);
     }
 
     private void init() {
@@ -205,7 +207,7 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
         mToDate.add(Calendar.DATE, 1);
         mToDate.set(Calendar.MINUTE, 0);
         mToDate.set(Calendar.SECOND, 0);
-        mToDate.set(Calendar.MILLISECOND,0);
+        mToDate.set(Calendar.MILLISECOND, 0);
         mToDate.set(Calendar.HOUR_OF_DAY, 0);
 
         displayDate(mFromDate.getTimeInMillis(), mTvToDate.getId(), mDateBtnFormat);
@@ -217,8 +219,7 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
         try {
             List<HealthRecordBean> healthRecordList = fetchHealthRecordsFromDB(fromDate, toDate);
             formattedRecordsJson = formatRecordsJson(healthRecordList);
-            String deviceName = updateUIForHealthRecords();
-            loadMapForDevice(deviceName);
+            updateUIForHealthRecords();
         } catch (JSONException e) {
             Log.e("updateReport", e.getMessage());
         }
@@ -227,39 +228,46 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
     /**
 
      */
-    private void loadMapForDevice(String deviceName) {
+    private void loadMapForDevice(String deviceName, String selectedDataKey) {
         if (deviceName == null) {
             return;
         }
         try {
             JSONObject deviceJson = formattedRecordsJson.get(deviceName);
             JSONObject dataObject = deviceJson.getJSONObject(Constants.DATA);
-            Iterator<String> keyIterator = dataObject.keys();
             Map<String, Double[]> valuesMap = new HashMap<>();
             double yMax = -1000;
             double yMin = 1000;
+            Iterator<String> keyIterator = dataObject.keys();
             while (keyIterator.hasNext()) {
                 String key = keyIterator.next();
-                JSONArray values = dataObject.getJSONArray(key);
-                Double[] valuesArray = new Double[values.length()];
-                for (int i = 0; i < values.length(); i++) {
-                    valuesArray[i] = Double.parseDouble(values.getString(i));
-                    if (valuesArray[i] > yMax) {
-                        yMax = valuesArray[i];
+                if(selectedDataKey.equals("All")||selectedDataKey.equals(key)){
+                    JSONArray values = dataObject.getJSONArray(key);
+                    Double[] valuesArray = new Double[values.length()];
+                    for (int i = 0; i < values.length(); i++) {
+                        valuesArray[i] = Double.parseDouble(values.getString(i));
+                        if (valuesArray[i] > yMax) {
+                            yMax = valuesArray[i];
+                        }
+                        if (valuesArray[i] < yMin) {
+                            yMin = valuesArray[i];
+                        }
                     }
-                    if (valuesArray[i] < yMin) {
-                        yMin = valuesArray[i];
-                    }
+                    valuesMap.put(key, valuesArray);
                 }
-                valuesMap.put(key, valuesArray);
             }
             JSONArray times = deviceJson.getJSONArray(Constants.TIME);
             String[] timeArray = new String[times.length()];
             for (int i = 0; i < times.length(); i++) {
                 timeArray[i] = times.getString(i);
             }
-            String dataType = deviceJson.getString(Constants.DATA_TYPE);
-            openChart(valuesMap, timeArray, dataType, yMax, yMin);
+            String yTitle;
+            if(!selectedDataKey.equals("All")){
+                yTitle = selectedDataKey;
+            }else{
+                yTitle = deviceJson.getString(Constants.DATA_TYPE);
+            }
+            openChart(valuesMap, timeArray, yTitle, yMax, yMin);
         } catch (JSONException e) {
             Log.e("ReportsActivity", e.getMessage());
         }
@@ -271,14 +279,12 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
         int displayChartValueDistance = 40;
         int yLabelCount = 10;
         int xLabelCount = 0;
-        int labelFontSize = 10;
+        int labelFontSize = 20;
         double xMin = 0;
         double xMax = timeArray.length;
         float curveAngle = 0.5f;
         View mChart;
-        String chartTitle = "Health Report";
         XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
-        multiRenderer.setChartTitle(chartTitle);
 
         XYMultipleSeriesDataset dataSet = new XYMultipleSeriesDataset();
         // Adding data to series
@@ -300,8 +306,8 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
         multiRenderer.setXTitle("\n\n\n" + xTitle);
         multiRenderer.setYTitle(yTitle);
         multiRenderer.setAxisTitleTextSize(40);
-        multiRenderer.setXAxisColor(Color.DKGRAY);
-        multiRenderer.setYAxisColor(Color.DKGRAY);
+        multiRenderer.setXAxisColor(Color.BLACK);
+        multiRenderer.setYAxisColor(Color.BLACK);
         multiRenderer.setLegendTextSize(30);
         multiRenderer.setXRoundedLabels(false);
         multiRenderer.setXLabels(xLabelCount);
@@ -333,11 +339,21 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
         multiRenderer.setYLabelsAlign(Paint.Align.RIGHT);
         multiRenderer.setMargins(new int[]{displayChartValueDistance, displayChartValueDistance, displayChartValueDistance, displayChartValueDistance});
         multiRenderer.setLabelsTextSize(labelFontSize);
+        multiRenderer.setMargins(new int[] {10, 60, 60, 10});
 
         int recordSize = timeArray.length;
-
+        int interval = recordSize/10;
         for (int i = 0; i < recordSize; i++) {
-            multiRenderer.addXTextLabel(i, timeArray[i]);
+            if(interval>0){
+                if(i%interval==0){
+                    multiRenderer.addXTextLabel(i, timeArray[i]);
+                }else{
+                    multiRenderer.addXTextLabel(i, "");
+                }
+            }
+            else{
+                multiRenderer.addXTextLabel(i, timeArray[i]);
+            }
         }
         // Creating a Line Chart
         mChart = ChartFactory.getCubeLineChartView(getBaseContext(), dataSet, multiRenderer, curveAngle);
@@ -474,9 +490,41 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (++checkSpinner > 1) {
-            Log.e("onItemSelected", "position selected: " + position);
-            loadMapForDevice(attributesArray[position]);
+        switch (parent.getId()){
+            case R.id.device_spin:{
+                Log.e("onItemSelected", "position selected: " + position);
+                selectedDeviceName = attributesArray[position];
+                try {
+                    JSONObject deviceJson = formattedRecordsJson.get(selectedDeviceName);
+                    JSONObject dataObject = deviceJson.getJSONObject(Constants.DATA);
+                    Iterator<String> keyIterator = dataObject.keys();
+                    int dataKeysCount = dataObject.length();
+                    if(dataKeysCount >1){
+                        dataKeysArray = new String [dataObject.length()+1];
+                        dataKeysArray[0]="All";
+                        for (int i=1;keyIterator.hasNext();i++){
+                            dataKeysArray[i]=keyIterator.next();
+                        }
+                    }
+                    else{
+                        dataKeysArray = new String []{keyIterator.next()};
+                    }
+                    ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this, R.layout.simple_list_item, R.id.simple_text, dataKeysArray);
+                    mDataSpin.setAdapter(spinnerArrayAdapter);
+                    mDataSpin.setSelection(0);
+                }catch (Exception e){
+                    Log.e("Welloculus", e.getMessage());
+
+                }
+                break;
+            }
+            case R.id.data_spin:{
+                String selectedDataKey = dataKeysArray[position];
+                if(selectedDeviceName!=null){
+                    loadMapForDevice(selectedDeviceName, selectedDataKey);
+                }
+                break;
+            }
         }
     }
 
@@ -526,12 +574,14 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
     private void showHideReport(boolean shouldShow) {
         if(shouldShow){
             mDeviceSpin.setVisibility(View.VISIBLE);
-            deviceNameText.setVisibility(View.VISIBLE);
+            mDataSpin.setVisibility(View.VISIBLE);
+            //deviceNameText.setVisibility(View.VISIBLE);
             reportContainer.setVisibility(View.VISIBLE);
             deviceMessage.setVisibility(View.GONE);
         }else{
             mDeviceSpin.setVisibility(View.GONE);
-            deviceNameText.setVisibility(View.GONE);
+            mDataSpin.setVisibility(View.GONE);
+            //deviceNameText.setVisibility(View.GONE);
             reportContainer.setVisibility(View.GONE);
             deviceMessage.setVisibility(View.VISIBLE);
         }
