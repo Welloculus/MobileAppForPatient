@@ -162,6 +162,12 @@ public class ReportsActivity extends BaseActivity implements View.OnClickListene
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
         }
 
         TextView main_title = (TextView) findViewById(R.id.report_toolbar_title);

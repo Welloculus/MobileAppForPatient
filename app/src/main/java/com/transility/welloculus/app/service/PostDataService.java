@@ -27,7 +27,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,12 +85,14 @@ public class PostDataService extends BroadcastReceiver {
             HealthRecordBean healthRecord = healthRecordsList.get(i);
             String dataType = healthRecord.getDataType();
             if (!healthDataJson.containsKey(dataType)) {
+                String date = new SimpleDateFormat("YYYY-MM-DD").format(new Date());
                 JSONObject dataTypeJsonObject =  new JSONObject();
                 dataTypeJsonObject.put(Constants.DATA_TYPE,dataType);
                 dataTypeJsonObject.put(Constants.DEVICE_ID, healthRecord.getDeviceID());
                 dataTypeJsonObject.put(Constants.DEVICE_NAME, healthRecord.getDeviceName());
                 dataTypeJsonObject.put(Constants.USER_DEVICE_ID, healthRecord.getUserDeviceID());
                 dataTypeJsonObject.put(Constants.PROVIDER_ID, tempProviderId);
+                dataTypeJsonObject.put(Constants.DATE, date);
                 dataTypeJsonObject.put(Constants.DATA, new JSONArray());
                 healthDataJson.put(dataType, dataTypeJsonObject);
             }
