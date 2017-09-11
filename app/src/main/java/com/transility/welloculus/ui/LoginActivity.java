@@ -32,6 +32,7 @@ public class LoginActivity extends BaseActivity {
     /**
      * The M et password ed.
      */
+
     protected EditText mEtPasswordEd;
     private MultiFactorAuthenticationContinuation mMultiFactorAuthenticationContinuation;
     private NewPasswordContinuation mNewPasswordContinuation;

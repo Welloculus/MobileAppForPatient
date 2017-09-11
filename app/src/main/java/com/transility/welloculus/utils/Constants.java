@@ -18,6 +18,7 @@ public interface Constants {
     final String KEY_ITEMS = "data";
     final String PROVIDER_ID = "provider_id";
     final String DATA = "data";
+    final String DATE = "date";
     final String TIME = "time";
     final String KEY_HEALTH_VITAL_KEY = "data";
     final String KEY_ENTRY_CREATED = "time";
